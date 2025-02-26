@@ -39,7 +39,7 @@ public class Database {
 
         HikariConfig config = new HikariConfig();
 
-        //Saved as enviromential variables to ensure security and flexibility
+        //Saved as environmental variables to ensure security and flexibility
         config.setJdbcUrl(System.getenv("DB_URL"));
         config.setUsername(System.getenv("DB_USER"));
         config.setPassword(System.getenv("DB_PASSWORD"));

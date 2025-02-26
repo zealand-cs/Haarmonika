@@ -1,4 +1,4 @@
-````mermaid
+```mermaid
 classDiagram
 direction LR
 
@@ -55,8 +55,11 @@ direction LR
     }
 
     class Database {
-        +static Database getInstance()
-        +Connection getConnection()
+        - static volatile Database instance
+        - static HikariDataSource dataSource
+        + static Database getInstance()
+        + Connection getConnection()
+        + static void close()
     }
 
     class CustomerDAO {
