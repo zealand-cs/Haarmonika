@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.Backend.db.interfaces;
+package dk.haarmonika.haarmonika.backend.db.interfaces;
 
 import java.sql.SQLException;
 

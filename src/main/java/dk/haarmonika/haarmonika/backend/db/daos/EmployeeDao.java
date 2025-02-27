@@ -1,7 +1,7 @@
-package dk.haarmonika.haarmonika.Backend.db.daos;
+package dk.haarmonika.haarmonika.backend.db.daos;
 
-import dk.haarmonika.haarmonika.Backend.db.Pagination;
-import dk.haarmonika.haarmonika.Backend.db.entities.Employee;
+import dk.haarmonika.haarmonika.backend.db.Pagination;
+import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

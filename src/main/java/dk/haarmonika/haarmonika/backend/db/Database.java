@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.Backend.db;
+package dk.haarmonika.haarmonika.backend.db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

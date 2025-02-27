@@ -1,9 +1,9 @@
-package dk.haarmonika.haarmonika.Backend.db.daos;
+package dk.haarmonika.haarmonika.backend.db.daos;
 
-import dk.haarmonika.haarmonika.Backend.db.interfaces.DbCreate;
-import dk.haarmonika.haarmonika.Backend.db.interfaces.DbDelete;
-import dk.haarmonika.haarmonika.Backend.db.interfaces.DbRead;
-import dk.haarmonika.haarmonika.Backend.db.interfaces.DbUpdate;
+import dk.haarmonika.haarmonika.backend.db.interfaces.DbCreate;
+import dk.haarmonika.haarmonika.backend.db.interfaces.DbDelete;
+import dk.haarmonika.haarmonika.backend.db.interfaces.DbRead;
+import dk.haarmonika.haarmonika.backend.db.interfaces.DbUpdate;
 
 import java.sql.Connection;
 

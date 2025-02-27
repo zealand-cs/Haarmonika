@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.Backend.db.entities;
+package dk.haarmonika.haarmonika.backend.db.entities;
 
 public abstract class User {
     public int id;

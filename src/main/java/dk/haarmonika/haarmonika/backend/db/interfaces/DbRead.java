@@ -1,6 +1,6 @@
-package dk.haarmonika.haarmonika.Backend.db.interfaces;
+package dk.haarmonika.haarmonika.backend.db.interfaces;
 
-import dk.haarmonika.haarmonika.Backend.db.Pagination;
+import dk.haarmonika.haarmonika.backend.db.Pagination;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
