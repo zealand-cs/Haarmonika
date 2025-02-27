@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika;
+package dk.haarmonika.haarmonika.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

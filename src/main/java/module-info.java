@@ -8,4 +8,6 @@ module dk.haarmonika.haarmonika {
 
     opens dk.haarmonika.haarmonika to javafx.fxml;
     exports dk.haarmonika.haarmonika;
+    exports dk.haarmonika.haarmonika.Controllers;
+    opens dk.haarmonika.haarmonika.Controllers to javafx.fxml;
 }

@@ -16,7 +16,7 @@ public class Database {
 
     //Bruges til test af logging, samt database forbindelse.
 
-   /* public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Database db = Database.getInstance();
         try (Connection conn = db.getConnection()) {
             if (conn != null && !conn.isClosed()) {
@@ -28,7 +28,7 @@ public class Database {
             logger.error("Error connecting to the database: {}", e.getMessage(), e);
         }
     }*/
-
+    
     /**
     Private constructor initializes a database connection-pool by help of HikariCP and ensures correct logging to make
     sure that the connection is running smoothly and that the application reuses connections instead of creating new ones
