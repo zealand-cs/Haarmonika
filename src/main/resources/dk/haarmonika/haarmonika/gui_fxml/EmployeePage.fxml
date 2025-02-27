@@ -23,6 +23,9 @@
                 <TableColumn fx:id="colFirstName" text="First Name"/>
                 <TableColumn fx:id="colLastName" text="Last Name"/>
                 <TableColumn fx:id="colRole" text="Role"/>
+                <TableColumn fx:id="colHasEmail" text="Email"/>
+                <TableColumn fx:id="colHasPhone" text="Phone"/>
+                <TableColumn fx:id="colHasPassword" text="Password"/>
             </columns>
         </TableView>
 

@@ -24,6 +24,9 @@ import java.sql.SQLException;
 
 public class EmployeeController implements ControllerInterface{
     private final EmployeeService employeeService;
+    @FXML private TableColumn<Employee, String> colHasEmail;
+    @FXML private TableColumn<Employee, String> colHasPhone;
+    @FXML private TableColumn<Employee, String> colHasPassword;
     @FXML private TableColumn<Employee, String> colFirstName;
     @FXML private TableColumn<Employee, String> colLastName;
     @FXML private TableColumn<Employee, String> colRole;
@@ -39,9 +42,15 @@ public class EmployeeController implements ControllerInterface{
 
     public void initialize() {
         loadEmployees();
-        colFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
-        colLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
-        colRole.setCellValueFactory(cellData -> new SimpleStringProperty("Employee")); // Eller hent fra objektet
+        FormatUtility.setTextCell(colFirstName, Employee::getFirstName);
+        FormatUtility.setTextCell(colLastName, Employee::getLastName);
+        FormatUtility.setTextCell(colRole, e -> "Employee");
+
+
+        FormatUtility.setCheckmarkCell(colHasEmail, Employee::getEmail);
+        FormatUtility.setCheckmarkCell(colHasPhone, Employee::getPhone);
+        FormatUtility.setCheckmarkCell(colHasPassword, Employee::getPassword);
+
 
         tableEmployees.setItems(employees);
 
@@ -82,6 +91,10 @@ public class EmployeeController implements ControllerInterface{
     @Override
     public void refresh() {
         //TO DO
+    }
+
+    private String checkExists(String value) {
+        return (value != null && !value.isBlank()) ? "✅" : "❌";
     }
 
 }
