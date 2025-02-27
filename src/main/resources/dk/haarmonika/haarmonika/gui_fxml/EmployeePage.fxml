@@ -8,7 +8,19 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dk.haarmonika.haarmonika.Controllers.EmployeeController">
+            fx:controller="dk.haarmonika.haarmonika.Controllers.EmployeeController"
             prefHeight="400.0" prefWidth="600.0">
 
+
+    <VBox spacing="10" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
+          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+
+            <Label text="Employees" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+
+            <ListView fx:id="employeeListView" prefHeight="250.0" prefWidth="400.0"/>
+
+            <Button text="Add New Employee" onAction="#addEmployeeButton" />
+
+    </VBox>
 </AnchorPane>

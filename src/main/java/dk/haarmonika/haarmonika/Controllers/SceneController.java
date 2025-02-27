@@ -13,6 +13,10 @@ public class SceneController {
     private static final Map<String, Parent> sceneCache = new HashMap<>();
     private static final Map<String, ControllerInterface> controllerCache = new HashMap<>();
 
+
+    /**
+
+     */
     public static void switchScene(String fxmlFile) {
         try {
             Parent root;
