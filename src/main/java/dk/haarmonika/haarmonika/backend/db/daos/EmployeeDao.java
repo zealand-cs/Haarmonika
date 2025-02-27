@@ -36,7 +36,7 @@ public class EmployeeDao extends Dao<Employee> {
 
     @Override
     public Optional<Employee> get(int id) throws SQLException {
-        var stmt = connection.prepareStatement(readQuery + "WHERE id = ?");
+        var stmt = connection.prepareStatement(readQuery + " WHERE id = ?");
         stmt.setInt(1, id);
         var res = stmt.executeQuery();
 
@@ -56,25 +56,27 @@ public class EmployeeDao extends Dao<Employee> {
             query += " LIMIT " + pagination.perPage + " OFFSET " + pagination.perPage * pagination.page;
         }
         var stmt = connection.prepareStatement(query);
-        var res = stmt.executeQuery();
+        try (var res = stmt.executeQuery()) {
 
-        List<Employee> users = new ArrayList<>();
-        while (res.next()) {
-            users.add(fromResultSet(res));
+            List<Employee> users = new ArrayList<>();
+            while (res.next()) {
+                users.add(fromResultSet(res));
+            }
+
+            return users;
         }
-
-        return users;
     }
 
     @Override
     public Employee fromResultSet(ResultSet set) throws SQLException {
         return new Employee(
                 set.getInt("id"),
-                set.getString("firstname"),
-                set.getString("lastname"),
+                set.getString("firstName"),
+                set.getString("lastName"),
                 set.getString("email"),
                 set.getString("phone"),
                 set.getString("password")
+
         );
     }
 
