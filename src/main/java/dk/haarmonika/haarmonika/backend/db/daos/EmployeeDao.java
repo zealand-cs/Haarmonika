@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class EmployeeDao extends Dao<Employee> {
-    EmployeeDao(Connection connection) {
+    public EmployeeDao(Connection connection) {
         super(connection);
     }
 

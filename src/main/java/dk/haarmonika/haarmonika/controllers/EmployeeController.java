@@ -1,5 +1,12 @@
 package dk.haarmonika.haarmonika.controllers;
 
+import dk.haarmonika.haarmonika.backend.db.Database;
+import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
+import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +17,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class EmployeeController implements ControllerInterface{
 
     public ListView employeeListView;
+    private final EmployeeService employeeService;
+    private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
-
+    EmployeeController(){
+        this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
+    }
 
     @FXML
     private void addEmployeeButton(ActionEvent actionEvent) {
@@ -38,7 +50,14 @@ public class EmployeeController implements ControllerInterface{
     }
 
 
+    private void loadEmployees() {
+        try {
+            employees.clear();
+            employees.addAll(employeeService.getAllEmployess());
+        } catch (SQLException e){
 
+        }
+    }
 
     @Override
     public void refresh() {
