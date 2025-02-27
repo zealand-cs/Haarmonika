@@ -4,8 +4,6 @@ import dk.haarmonika.haarmonika.backend.db.Database;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
-import dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -24,6 +21,7 @@ import java.sql.SQLException;
 
 public class EmployeeController implements ControllerInterface{
     private final EmployeeService employeeService;
+
     @FXML private TableColumn<Employee, String> colHasEmail;
     @FXML private TableColumn<Employee, String> colHasPhone;
     @FXML private TableColumn<Employee, String> colHasPassword;
@@ -40,6 +38,10 @@ public class EmployeeController implements ControllerInterface{
         this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
     }
 
+    /**
+     Calls methods for toString for the tableview, so it displays correct values
+     */
+
     public void initialize() {
         loadEmployees();
         FormatUtility.setTextCell(colFirstName, Employee::getFirstName);
@@ -53,8 +55,6 @@ public class EmployeeController implements ControllerInterface{
 
 
         tableEmployees.setItems(employees);
-
-
     }
 
 
@@ -81,7 +81,7 @@ public class EmployeeController implements ControllerInterface{
 
     private void loadEmployees() {
         try {
-            employees.setAll(employeeService.getAllEmployess());
+            employees.setAll(employeeService.getAllEmployees());
             System.out.println("Loaded Employees: " + employees.size()); // Debugging
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,10 +91,6 @@ public class EmployeeController implements ControllerInterface{
     @Override
     public void refresh() {
         //TO DO
-    }
-
-    private String checkExists(String value) {
-        return (value != null && !value.isBlank()) ? "✅" : "❌";
     }
 
 }
