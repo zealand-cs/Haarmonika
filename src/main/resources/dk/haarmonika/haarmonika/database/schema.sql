@@ -13,6 +13,7 @@ CREATE TABLE User (
     lastName VARCHAR(255),
     email VARCHAR(255) UNIQUE,
     phone VARCHAR(255) UNIQUE,
+    password VARCHAR(255),
     roleId INT NOT NULL
 );
 
