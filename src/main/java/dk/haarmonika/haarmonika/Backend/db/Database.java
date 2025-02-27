@@ -95,5 +95,4 @@ public class Database {
             logger.info("Database connection pool closed.");
         }
     }
-
 }
