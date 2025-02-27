@@ -29,7 +29,8 @@ public class EmployeeDao extends Dao<Employee> {
         stmt.setString(2, user.lastName);
         stmt.setString(3, user.email);
         stmt.setString(4, user.phone);
-        stmt.setInt(5, roleId);
+        stmt.setString(5, user.password);
+        stmt.setInt(6, roleId);
         stmt.executeUpdate();
     }
 
@@ -52,13 +53,13 @@ public class EmployeeDao extends Dao<Employee> {
         var query = readQuery;
         // Add pagination to query if we want pages
         if (pagination != null) {
-            query += "LIMIT " + pagination.perPage + " OFFSET" + pagination.perPage * pagination.page;
+            query += " LIMIT " + pagination.perPage + " OFFSET " + pagination.perPage * pagination.page;
         }
         var stmt = connection.prepareStatement(query);
         var res = stmt.executeQuery();
 
         List<Employee> users = new ArrayList<>();
-        if (res.next()) {
+        while (res.next()) {
             users.add(fromResultSet(res));
         }
 

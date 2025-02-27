@@ -29,6 +29,9 @@ public class EmployeeController implements ControllerInterface{
         this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
     }
 
+    public void initialize() {
+        loadEmployees();
+    }
     @FXML
     private void addEmployeeButton(ActionEvent actionEvent) {
         try {
@@ -55,7 +58,7 @@ public class EmployeeController implements ControllerInterface{
             employees.clear();
             employees.addAll(employeeService.getAllEmployess());
         } catch (SQLException e){
-
+            e.printStackTrace();
         }
     }
 
