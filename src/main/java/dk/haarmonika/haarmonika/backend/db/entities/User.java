@@ -18,4 +18,32 @@ public abstract class User {
         this.password = password;
         this.roleId = roleId;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
 }

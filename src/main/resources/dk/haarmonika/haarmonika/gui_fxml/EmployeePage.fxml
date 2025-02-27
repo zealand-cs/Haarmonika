@@ -18,7 +18,13 @@
             <Label text="Employees" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
 
-            <ListView fx:id="listofEmployees" prefHeight="250.0" prefWidth="400.0"/>
+        <TableView fx:id="tableEmployees">
+            <columns>
+                <TableColumn fx:id="colFirstName" text="First Name"/>
+                <TableColumn fx:id="colLastName" text="Last Name"/>
+                <TableColumn fx:id="colRole" text="Role"/>
+            </columns>
+        </TableView>
 
             <Button text="Add New Employee" onAction="#addEmployeeButton" />
 

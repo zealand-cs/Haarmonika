@@ -18,7 +18,7 @@ public class EmployeeDao extends Dao<Employee> {
     static final int roleId = 100; // TODO: id of employee role
 
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
-    static final String readQuery = "SELECT firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
+    static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
     static final String updateQuery = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
     static final String deleteQuery = "DELETE FROM users WHERE id = ?";
 

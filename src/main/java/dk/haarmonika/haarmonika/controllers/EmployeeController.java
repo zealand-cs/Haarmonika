@@ -5,6 +5,7 @@ import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
 import dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,9 +23,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class EmployeeController implements ControllerInterface{
-
-    public ListView employeeListView;
     private final EmployeeService employeeService;
+    @FXML private TableColumn<Employee, String> colFirstName;
+    @FXML private TableColumn<Employee, String> colLastName;
+    @FXML private TableColumn<Employee, String> colRole;
+    @FXML private TableView<Employee> tableEmployees;
+
+
+
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
     public EmployeeController(){
@@ -31,7 +39,16 @@ public class EmployeeController implements ControllerInterface{
 
     public void initialize() {
         loadEmployees();
+        colFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
+        colLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
+        colRole.setCellValueFactory(cellData -> new SimpleStringProperty("Employee")); // Eller hent fra objektet
+
+        tableEmployees.setItems(employees);
+
+
     }
+
+
     @FXML
     private void addEmployeeButton(ActionEvent actionEvent) {
         try {
@@ -55,9 +72,9 @@ public class EmployeeController implements ControllerInterface{
 
     private void loadEmployees() {
         try {
-            employees.clear();
-            employees.addAll(employeeService.getAllEmployess());
-        } catch (SQLException e){
+            employees.setAll(employeeService.getAllEmployess());
+            System.out.println("Loaded Employees: " + employees.size()); // Debugging
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -66,4 +83,5 @@ public class EmployeeController implements ControllerInterface{
     public void refresh() {
         //TO DO
     }
+
 }
