@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class EmployeeDao extends Dao<Employee> {
-    EmployeeDao(Connection connection) {
+    public EmployeeDao(Connection connection) {
         super(connection);
     }
 
     static final int roleId = 100; // TODO: id of employee role
 
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
-    static final String readQuery = "SELECT firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
+    static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
     static final String updateQuery = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
     static final String deleteQuery = "DELETE FROM users WHERE id = ?";
 
@@ -29,13 +29,14 @@ public class EmployeeDao extends Dao<Employee> {
         stmt.setString(2, user.lastName);
         stmt.setString(3, user.email);
         stmt.setString(4, user.phone);
-        stmt.setInt(5, roleId);
+        stmt.setString(5, user.password);
+        stmt.setInt(6, roleId);
         stmt.executeUpdate();
     }
 
     @Override
     public Optional<Employee> get(int id) throws SQLException {
-        var stmt = connection.prepareStatement(readQuery + "WHERE id = ?");
+        var stmt = connection.prepareStatement(readQuery + " WHERE id = ?");
         stmt.setInt(1, id);
         var res = stmt.executeQuery();
 
@@ -52,28 +53,30 @@ public class EmployeeDao extends Dao<Employee> {
         var query = readQuery;
         // Add pagination to query if we want pages
         if (pagination != null) {
-            query += "LIMIT " + pagination.perPage + " OFFSET" + pagination.perPage * pagination.page;
+            query += " LIMIT " + pagination.perPage + " OFFSET " + pagination.perPage * pagination.page;
         }
         var stmt = connection.prepareStatement(query);
-        var res = stmt.executeQuery();
+        try (var res = stmt.executeQuery()) {
 
-        List<Employee> users = new ArrayList<>();
-        if (res.next()) {
-            users.add(fromResultSet(res));
+            List<Employee> users = new ArrayList<>();
+            while (res.next()) {
+                users.add(fromResultSet(res));
+            }
+
+            return users;
         }
-
-        return users;
     }
 
     @Override
     public Employee fromResultSet(ResultSet set) throws SQLException {
         return new Employee(
                 set.getInt("id"),
-                set.getString("firstname"),
-                set.getString("lastname"),
+                set.getString("firstName"),
+                set.getString("lastName"),
                 set.getString("email"),
                 set.getString("phone"),
                 set.getString("password")
+
         );
     }
 
