@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Haarmonika" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="dk.haarmonika.haarmonika.StartScene" />
+    <module name="Haarmonika" />
+    <option name="VM_PARAMETERS" value="--add-reads dk.haarmonika.haarmonika=ALL-UNNAMED" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

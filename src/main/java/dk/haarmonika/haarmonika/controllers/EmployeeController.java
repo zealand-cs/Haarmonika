@@ -1,9 +1,6 @@
 package dk.haarmonika.haarmonika.controllers;
 
-import dk.haarmonika.haarmonika.backend.db.Database.DatabaseConnectionPool;
-import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
-import dk.haarmonika.haarmonika.backend.services.EmployeeService;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,8 +16,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+
 
 public class EmployeeController implements ControllerInterface{
+    private static final Logger logger = LogManager.getLogger(EmployeeController.class);
+
     private final IEmployeeService employeeService;
 
     @FXML private TableColumn<Employee, String> colHasEmail;
@@ -37,6 +40,11 @@ public class EmployeeController implements ControllerInterface{
 
     public EmployeeController(IEmployeeService employeeService){
         this.employeeService = employeeService;
+        if (employeeService != null) {
+            logger.info("EmployeeService injected successfully");
+        } else {
+            logger.error("Failed to inject EmployeeService");
+        }
     }
 
     /**

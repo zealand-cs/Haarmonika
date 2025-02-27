@@ -2,10 +2,12 @@ package dk.haarmonika.haarmonika.backend.db.daos;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import org.springframework.context.annotation.Bean;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+
 
 public interface IEmployeeDao {
 

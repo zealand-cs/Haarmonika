@@ -3,17 +3,21 @@ package dk.haarmonika.haarmonika.backend.services;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.daos.IEmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EmployeeService implements IEmployeeService {
     private final IEmployeeDao employeeDao;
 
-
-    public EmployeeService(EmployeeDao dao) {
-        this.employeeDao = dao;
+    @Autowired
+    public EmployeeService(@Qualifier("employeedDao") IEmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
     }
 
     @Override
