@@ -11,20 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class EmployeeDao extends Dao<Employee> {
-    public EmployeeDao(Connection connection) {
-        super(connection);
-    }
-
+    private Pagination pagination = new Pagination();
     static final int roleId = 100; // TODO: id of employee role
 
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
     static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
-    static final String updateQuery = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
-    static final String deleteQuery = "DELETE FROM users WHERE id = ?";
+    static final String updateQuery = "UPDATE user SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
+    static final String deleteQuery = "DELETE FROM user WHERE id = ?";
 
     @Override
     public void save(Employee user) throws SQLException {
-        var stmt = connection.prepareStatement(createQuery);
+        try (Connection connection = getConnection();
+             var stmt = connection.prepareStatement(createQuery)) {
         stmt.setString(1, user.getFirstName());
         stmt.setString(2, user.getLastName());
         stmt.setString(3, user.getEmail());
@@ -32,37 +30,42 @@ public class EmployeeDao extends Dao<Employee> {
         stmt.setString(5, user.getPassword());
         stmt.setInt(6, roleId);
         stmt.executeUpdate();
+        }
     }
 
     @Override
     public Optional<Employee> get(int id) throws SQLException {
-        var stmt = connection.prepareStatement(readQuery + " WHERE id = ?");
-        stmt.setInt(1, id);
-        var res = stmt.executeQuery();
-
-        Optional<Employee> user = Optional.empty();
-        if (res.next()) {
-            user = Optional.ofNullable(fromResultSet(res));
+        try (Connection connection = getConnection();
+             var stmt = connection.prepareStatement(readQuery + " WHERE id = ?")) {
+            stmt.setInt(1, id);
+            try (var res = stmt.executeQuery()) {
+                if (res.next()) {
+                    return Optional.of(fromResultSet(res));
+                }
+            }
         }
-
-        return user;
+        return Optional.empty();
     }
+
 
     @Override
     public List<Employee> getAll(Pagination pagination) throws SQLException {
-        var query = readQuery;
-        // Add pagination to query if we want pages
-        if (pagination != null) {
-            query += " LIMIT " + pagination.perPage + " OFFSET " + pagination.perPage * pagination.page;
+        if (pagination == null) {
+            pagination = new Pagination();
         }
-        var stmt = connection.prepareStatement(query);
-        try (var res = stmt.executeQuery()) {
+
+        String query = readQuery + " LIMIT ? OFFSET ?";
+        try (Connection connection = getConnection();
+            var stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, pagination.perPage);
+            stmt.setInt(2, pagination.perPage * pagination.page);
 
             List<Employee> users = new ArrayList<>();
-            while (res.next()) {
-                users.add(fromResultSet(res));
+            try (var res = stmt.executeQuery()) {
+                while (res.next()) {
+                    users.add(fromResultSet(res));
+                }
             }
-
             return users;
         }
     }
@@ -82,18 +85,24 @@ public class EmployeeDao extends Dao<Employee> {
 
     @Override
     public void update(Employee user) throws SQLException {
-        var stmt = connection.prepareStatement(updateQuery);
-        stmt.setString(1, user.getFirstName());
-        stmt.setString(2, user.getLastName());
-        stmt.setString(3, user.getEmail());
-        stmt.setString(4, user.getPhone());
-        stmt.setInt(5, user.getRoleId());
-        stmt.setInt(6, user.getId());
-        stmt.executeUpdate();
+        try (Connection connection = getConnection();
+             var stmt = connection.prepareStatement(updateQuery)) {
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getLastName());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getPhone());
+            stmt.setInt(5, user.getRoleId());
+            stmt.setInt(6, user.getId());
+            stmt.executeUpdate();
+        }
     }
 
     @Override
     public void delete(Employee user) throws SQLException {
-       connection.prepareStatement(deleteQuery);
+        try (Connection connection = getConnection();
+             var stmt = connection.prepareStatement(deleteQuery)) {
+            stmt.setInt(1, user.getId());
+            stmt.executeUpdate();
+        }
     }
 }

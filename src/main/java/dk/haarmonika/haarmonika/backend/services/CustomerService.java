@@ -1,3 +1,4 @@
+/*
 package dk.haarmonika.haarmonika.backend.services;
 
 import dk.haarmonika.haarmonika.backend.db.daos.CustomerDao;
@@ -21,3 +22,4 @@ public class CustomerService {
         customerDao.save(customer);
     }
 }
+*/

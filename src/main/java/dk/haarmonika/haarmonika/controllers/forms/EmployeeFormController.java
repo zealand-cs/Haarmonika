@@ -1,14 +1,12 @@
 package dk.haarmonika.haarmonika.controllers.forms;
 
-import dk.haarmonika.haarmonika.backend.db.Database;
+import dk.haarmonika.haarmonika.backend.db.Database.DatabaseConnectionPool;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
-import dk.haarmonika.haarmonika.controllers.EmployeeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
@@ -27,7 +25,7 @@ public class EmployeeFormController {
     @FXML private TextField passwordField;
 
     public EmployeeFormController(){
-        this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
+        this.employeeService = new EmployeeService(new EmployeeDao());
     }
     public void handleCreateButton(ActionEvent actionEvent) {
         try {

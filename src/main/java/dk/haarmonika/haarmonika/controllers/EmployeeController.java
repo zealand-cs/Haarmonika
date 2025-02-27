@@ -1,6 +1,6 @@
 package dk.haarmonika.haarmonika.controllers;
 
-import dk.haarmonika.haarmonika.backend.db.Database;
+import dk.haarmonika.haarmonika.backend.db.Database.DatabaseConnectionPool;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
@@ -35,7 +35,7 @@ public class EmployeeController implements ControllerInterface{
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
     public EmployeeController(){
-        this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
+        this.employeeService = new EmployeeService(new EmployeeDao());
     }
 
     /**

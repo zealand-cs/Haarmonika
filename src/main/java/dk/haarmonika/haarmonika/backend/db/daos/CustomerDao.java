@@ -1,3 +1,4 @@
+/*
 package dk.haarmonika.haarmonika.backend.db.daos;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
@@ -97,3 +98,4 @@ public class CustomerDao extends Dao<Customer> {
         connection.prepareStatement(deleteQuery);
     }
 }
+*/
