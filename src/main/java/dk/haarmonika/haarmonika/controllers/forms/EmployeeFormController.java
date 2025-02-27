@@ -40,11 +40,11 @@ public class EmployeeFormController {
                 showError("All fields must be filled out!");
                 return;
         }
-            Employee newEmployee = new Employee(null, firstName, lastName, email, phone, password);
-            int generatedID = employeeService.createEmployee(newEmployee);
+            Employee newEmployee = new Employee(firstName, lastName, email, phone, password);
+            employeeService.createEmployee(newEmployee);
 
 
-            showSuccess("Employee created successfully! ID: " + generatedID);
+            showSuccess("Employee created successfully! " + firstName + " " + lastName);
 
     } catch (SQLException e) {
             e.printStackTrace();
