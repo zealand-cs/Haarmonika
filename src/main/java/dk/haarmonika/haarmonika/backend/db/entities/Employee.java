@@ -5,4 +5,9 @@ public class Employee extends User {
         // TODO find role id
         super(id, firstname, lastName, email, phone, password, 100);
     }
+
+    public Employee(String firstname, String lastName, String email, String phone, String password) {
+        // TODO find role id
+        super(null, firstname, lastName, email, phone, password, 100);
+    }
 }
