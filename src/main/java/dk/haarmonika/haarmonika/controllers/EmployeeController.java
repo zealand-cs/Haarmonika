@@ -4,6 +4,7 @@ import dk.haarmonika.haarmonika.backend.db.Database.DatabaseConnectionPool;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class EmployeeController implements ControllerInterface{
-    private final EmployeeService employeeService;
+    private final IEmployeeService employeeService;
 
     @FXML private TableColumn<Employee, String> colHasEmail;
     @FXML private TableColumn<Employee, String> colHasPhone;
@@ -34,8 +35,8 @@ public class EmployeeController implements ControllerInterface{
 
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
-    public EmployeeController(){
-        this.employeeService = new EmployeeService(new EmployeeDao());
+    public EmployeeController(IEmployeeService employeeService){
+        this.employeeService = employeeService;
     }
 
     /**
@@ -88,6 +89,22 @@ public class EmployeeController implements ControllerInterface{
             System.out.println("Loaded Employees: " + employees.size()); // Debugging
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void deleteEmployeeButton() {
+        Employee selectedEmployee = tableEmployees.getSelectionModel().getSelectedItem();
+
+        if (selectedEmployee != null) {
+            try {
+                employeeService.delete(selectedEmployee.getId());
+                tableEmployees.getItems().remove(selectedEmployee);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Ingen medarbejder valgt");
         }
     }
 

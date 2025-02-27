@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class EmployeeDao extends Dao<Employee> {
-    private Pagination pagination = new Pagination();
+public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
     static final int roleId = 100; // TODO: id of employee role
 
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
@@ -50,15 +49,14 @@ public class EmployeeDao extends Dao<Employee> {
 
     @Override
     public List<Employee> getAll(Pagination pagination) throws SQLException {
-        if (pagination == null) {
-            pagination = new Pagination();
-        }
+        Pagination safePagination = (pagination != null) ? pagination : new Pagination(0, 10);
+
 
         String query = readQuery + " LIMIT ? OFFSET ?";
         try (Connection connection = getConnection();
             var stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, pagination.perPage);
-            stmt.setInt(2, pagination.perPage * pagination.page);
+            stmt.setInt(1, safePagination.perPage);
+            stmt.setInt(2, safePagination.perPage * safePagination.page);
 
             List<Employee> users = new ArrayList<>();
             try (var res = stmt.executeQuery()) {
@@ -102,6 +100,15 @@ public class EmployeeDao extends Dao<Employee> {
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(deleteQuery)) {
             stmt.setInt(1, user.getId());
+            stmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public void delete(int id) throws SQLException {
+        try (Connection connection = getConnection();
+             var stmt = connection.prepareStatement(deleteQuery)) {
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         }
     }

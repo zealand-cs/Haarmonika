@@ -30,6 +30,7 @@
         </TableView>
 
             <Button text="Add New Employee" onAction="#addEmployeeButton" />
+            <Button text="Delete Employee" onAction="#deleteEmployeeButton" />
 
     </VBox>
 </AnchorPane>

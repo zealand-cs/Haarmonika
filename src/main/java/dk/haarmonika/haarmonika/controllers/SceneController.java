@@ -1,6 +1,9 @@
 package dk.haarmonika.haarmonika.controllers;
 
 import dk.haarmonika.haarmonika.StartScene;
+import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
+import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +27,14 @@ public class SceneController {
 
             if (!sceneCache.containsKey(fxmlFile)) {
                 FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/dk/haarmonika/haarmonika/gui_fxml/" + fxmlFile));
+
+                // Hvis EmployeeView skal loades, så injiceres EmployeeService
+                if (fxmlFile.equals("EmployeePage.fxml")) {
+                    // Opret instans af EmployeeService og injicer den i controlleren
+                    IEmployeeService employeeService = new EmployeeService(new EmployeeDao());
+                    loader.setControllerFactory(param -> new EmployeeController(employeeService));
+                }
+
                 root = loader.load();
                 controller = loader.getController();
 
@@ -46,5 +57,3 @@ public class SceneController {
         }
     }
 }
-
-
