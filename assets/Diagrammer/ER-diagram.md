@@ -20,7 +20,7 @@ erDiagram
     Service {
         int id PK
         string name
-        int time "the time the service takes, in seconds"
+        int duration "the time the service takes, in seconds"
     }
    
     Booking {

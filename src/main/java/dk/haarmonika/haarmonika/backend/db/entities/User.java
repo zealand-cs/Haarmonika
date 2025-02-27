@@ -1,13 +1,13 @@
 package dk.haarmonika.haarmonika.backend.db.entities;
 
 public abstract class User {
-    public Integer id;
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String phone;
-    public String password;
-    public int roleId;
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String password;
+    private int roleId;
 
     public User(Integer id, String firstname, String lastName, String email, String phone, String password, int roleId) {
         this.id = id;

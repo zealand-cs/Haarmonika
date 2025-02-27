@@ -6,5 +6,5 @@ public interface DbDelete<T> {
     /**
      * Delete an object from the database
      */
-    void delete(T dao) throws SQLException;
+    void delete(T entity) throws SQLException;
 }

@@ -8,5 +8,5 @@ public interface DbCreate<T> {
      * @return the id of the inserted row
      * @throws SQLException
      */
-    void save(T dao) throws SQLException;
+    void save(T entity) throws SQLException;
 }
