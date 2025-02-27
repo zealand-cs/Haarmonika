@@ -9,7 +9,7 @@ erDiagram
         string email UK
         string phone UK
         string password "hashed and salted password"
-        int role FK
+        int roleId FK
     }
     
     UserRole {
