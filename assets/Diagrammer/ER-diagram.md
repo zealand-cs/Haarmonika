@@ -14,7 +14,7 @@ erDiagram
     
     UserRole {
         int id PK
-        string name "the name of the role e.g. 'employee', 'customer'"
+        string name UK "the name of the role e.g. 'employee', 'customer'"
     }
         
     Service {

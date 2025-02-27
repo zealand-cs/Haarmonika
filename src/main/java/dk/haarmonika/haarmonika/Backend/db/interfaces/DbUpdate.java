@@ -1,5 +1,7 @@
 package dk.haarmonika.haarmonika.Backend.db.interfaces;
 
-public interface DbUpdate {
-    void update(String id);
+import java.sql.SQLException;
+
+public interface DbUpdate<T> {
+    void update(T dao) throws SQLException;
 }

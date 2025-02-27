@@ -1,5 +1,10 @@
 package dk.haarmonika.haarmonika.Backend.db.interfaces;
 
-public interface DbDelete {
-    void delete(String id);
+import java.sql.SQLException;
+
+public interface DbDelete<T> {
+    /**
+     * Delete an object from the database
+     */
+    void delete(T dao) throws SQLException;
 }
