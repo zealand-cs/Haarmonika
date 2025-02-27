@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.controllers;
+package dk.haarmonika.haarmonika.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,10 +54,6 @@ public class CustomerController{
         //customers.addAll(customerlist);
     }
 
-    @Override
-    public void refresh() {
-        //TO DO
-    }
 
 
 }

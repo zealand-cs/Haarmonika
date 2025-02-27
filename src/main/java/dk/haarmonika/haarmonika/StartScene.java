@@ -1,6 +1,6 @@
 package dk.haarmonika.haarmonika;
 
-import dk.haarmonika.haarmonika.controllers.SceneController;
+import dk.haarmonika.haarmonika.Controllers.SceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

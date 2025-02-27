@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.controllers.forms;
+package dk.haarmonika.haarmonika.Controllers.forms;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
