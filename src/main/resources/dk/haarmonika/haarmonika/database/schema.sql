@@ -1,13 +1,13 @@
 CREATE DATABASE Haarmonika;
 
-CREATE TABLE UserRole (
+CREATE TABLE userRole (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(32) NOT NULL
 );
 
-INSERT INTO UserRole (name) VALUES ("employee", "customer");
+INSERT INTO userRole (name) VALUES ("employee", "customer");
 
-CREATE TABLE User (
+CREATE TABLE user (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255),
@@ -17,13 +17,13 @@ CREATE TABLE User (
     roleId INT NOT NULL
 );
 
-CREATE TABLE Service (
+CREATE TABLE service (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
-    time INT NOT NULL
+    duration INT NOT NULL
 );
 
-CREATE TABLE Booking (
+CREATE TABLE booking (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     employeeId INT NOT NULL,
     customerId INT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE Booking (
     cancelled BOOL DEFAULT false
 );
 
-CREATE TABLE BookingService (
+CREATE TABLE bookingService (
     bookingId INT,
     serviceId INT,
     PRIMARY KEY(bookingId, serviceId)

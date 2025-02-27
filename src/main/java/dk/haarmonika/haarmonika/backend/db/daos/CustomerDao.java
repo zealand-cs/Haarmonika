@@ -1,7 +1,7 @@
 package dk.haarmonika.haarmonika.backend.db.daos;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
-import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import dk.haarmonika.haarmonika.backend.db.entities.Customer;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class EmployeeDao extends Dao<Employee> {
-    public EmployeeDao(Connection connection) {
+public class CustomerDao extends Dao<Customer> {
+    public CustomerDao(Connection connection) {
         super(connection);
     }
 
-    static final int roleId = 100; // TODO: id of employee role
+    static final int roleId = 50; // TODO: id of customer role
 
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
     static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
@@ -23,7 +23,7 @@ public class EmployeeDao extends Dao<Employee> {
     static final String deleteQuery = "DELETE FROM users WHERE id = ?";
 
     @Override
-    public void save(Employee user) throws SQLException {
+    public void save(Customer user) throws SQLException {
         var stmt = connection.prepareStatement(createQuery);
         stmt.setString(1, user.getFirstName());
         stmt.setString(2, user.getLastName());
@@ -35,12 +35,12 @@ public class EmployeeDao extends Dao<Employee> {
     }
 
     @Override
-    public Optional<Employee> get(int id) throws SQLException {
+    public Optional<Customer> get(int id) throws SQLException {
         var stmt = connection.prepareStatement(readQuery + " WHERE id = ?");
         stmt.setInt(1, id);
         var res = stmt.executeQuery();
 
-        Optional<Employee> user = Optional.empty();
+        Optional<Customer> user = Optional.empty();
         if (res.next()) {
             user = Optional.ofNullable(fromResultSet(res));
         }
@@ -49,7 +49,7 @@ public class EmployeeDao extends Dao<Employee> {
     }
 
     @Override
-    public List<Employee> getAll(Pagination pagination) throws SQLException {
+    public List<Customer> getAll(Pagination pagination) throws SQLException {
         var query = readQuery;
         // Add pagination to query if we want pages
         if (pagination != null) {
@@ -58,7 +58,7 @@ public class EmployeeDao extends Dao<Employee> {
         var stmt = connection.prepareStatement(query);
         try (var res = stmt.executeQuery()) {
 
-            List<Employee> users = new ArrayList<>();
+            List<Customer> users = new ArrayList<>();
             while (res.next()) {
                 users.add(fromResultSet(res));
             }
@@ -68,8 +68,8 @@ public class EmployeeDao extends Dao<Employee> {
     }
 
     @Override
-    public Employee fromResultSet(ResultSet set) throws SQLException {
-        return new Employee(
+    public Customer fromResultSet(ResultSet set) throws SQLException {
+        return new Customer(
                 set.getInt("id"),
                 set.getString("firstName"),
                 set.getString("lastName"),
@@ -81,7 +81,7 @@ public class EmployeeDao extends Dao<Employee> {
     }
 
     @Override
-    public void update(Employee user) throws SQLException {
+    public void update(Customer user) throws SQLException {
         var stmt = connection.prepareStatement(updateQuery);
         stmt.setString(1, user.getFirstName());
         stmt.setString(2, user.getLastName());
@@ -93,7 +93,7 @@ public class EmployeeDao extends Dao<Employee> {
     }
 
     @Override
-    public void delete(Employee user) throws SQLException {
-       connection.prepareStatement(deleteQuery);
+    public void delete(Customer user) throws SQLException {
+        connection.prepareStatement(deleteQuery);
     }
 }
