@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.Controllers;
+package dk.haarmonika.haarmonika.controllers;
 
 public interface ControllerInterface {
 

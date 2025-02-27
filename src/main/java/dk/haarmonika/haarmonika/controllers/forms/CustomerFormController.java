@@ -1,13 +1,9 @@
-package dk.haarmonika.haarmonika.Controllers.forms;
+package dk.haarmonika.haarmonika.controllers.forms;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CustomerFormController {
     @FXML private Button createButton;

@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.Controllers;
+package dk.haarmonika.haarmonika.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

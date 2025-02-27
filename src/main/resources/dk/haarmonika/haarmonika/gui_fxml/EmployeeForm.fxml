@@ -5,7 +5,7 @@
 <VBox spacing="10" alignment="CENTER" prefHeight="400" prefWidth="400"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="dk.haarmonika.haarmonika.Controllers.forms.EmployeeFormController">
+      fx:controller="dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController">
 
     <Label text="New Employee"/>
 

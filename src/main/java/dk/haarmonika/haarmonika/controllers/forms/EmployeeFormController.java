@@ -1,6 +1,5 @@
-package dk.haarmonika.haarmonika.Controllers.forms;
+package dk.haarmonika.haarmonika.controllers.forms;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

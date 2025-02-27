@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.Controllers;
+package dk.haarmonika.haarmonika.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
