@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" prefHeight="400" prefWidth="400"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController">
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dk.haarmonika.haarmonika.controllers.forms.CustomerFormController"
+            prefHeight="400.0" prefWidth="600.0">
 
-    <Label text="New Employee"/>
-
-
+    <Label text="Add New Customer"/>
     <TextField fx:id="firstNameField" promptText="Enter your First Name" prefWidth="300"/>
     <TextField fx:id="lastNameField" promptText="Enter your Last Name" prefWidth="300"/>
     <TextField fx:id="emailField" promptText="Enter your E-mail" prefWidth="300"/>
     <TextField fx:id="phoneField" promptText="Enter your Phone number" prefWidth="300"/>
-    <TextField fx:id="passwordField" promptText="Enter the desired password" prefWidth="300"/>
 
     <Button fx:id="createButton" text="create" onAction="#handleCreateButton" prefWidth="300"/>
-</VBox>
+</AnchorPane>

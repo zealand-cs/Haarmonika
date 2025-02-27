@@ -1,9 +1,7 @@
 package dk.haarmonika.haarmonika;
 
-import dk.haarmonika.haarmonika.Controllers.SceneController;
+import dk.haarmonika.haarmonika.controllers.SceneController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;

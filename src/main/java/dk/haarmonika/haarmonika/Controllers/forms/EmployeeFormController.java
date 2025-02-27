@@ -1,10 +1,14 @@
-package dk.haarmonika.haarmonika.Controllers;
+package dk.haarmonika.haarmonika.controllers.forms;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+
 public class EmployeeFormController {
+    @FXML private Button createButton;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
