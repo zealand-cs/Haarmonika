@@ -4,8 +4,6 @@ import dk.haarmonika.haarmonika.backend.db.Database;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
-import dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -24,6 +21,10 @@ import java.sql.SQLException;
 
 public class EmployeeController implements ControllerInterface{
     private final EmployeeService employeeService;
+
+    @FXML private TableColumn<Employee, String> colHasEmail;
+    @FXML private TableColumn<Employee, String> colHasPhone;
+    @FXML private TableColumn<Employee, String> colHasPassword;
     @FXML private TableColumn<Employee, String> colFirstName;
     @FXML private TableColumn<Employee, String> colLastName;
     @FXML private TableColumn<Employee, String> colRole;
@@ -37,15 +38,23 @@ public class EmployeeController implements ControllerInterface{
         this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
     }
 
+    /**
+     Calls methods for toString for the tableview, so it displays correct values
+     */
+
     public void initialize() {
         loadEmployees();
-        colFirstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
-        colLastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
-        colRole.setCellValueFactory(cellData -> new SimpleStringProperty("Employee")); // Eller hent fra objektet
+        FormatUtility.setTextCell(colFirstName, Employee::getFirstName);
+        FormatUtility.setTextCell(colLastName, Employee::getLastName);
+        FormatUtility.setTextCell(colRole, e -> "Employee");
+
+
+        FormatUtility.setCheckmarkCell(colHasEmail, Employee::getEmail);
+        FormatUtility.setCheckmarkCell(colHasPhone, Employee::getPhone);
+        FormatUtility.setCheckmarkCell(colHasPassword, Employee::getPassword);
+
 
         tableEmployees.setItems(employees);
-
-
     }
 
 
@@ -72,7 +81,7 @@ public class EmployeeController implements ControllerInterface{
 
     private void loadEmployees() {
         try {
-            employees.setAll(employeeService.getAllEmployess());
+            employees.setAll(employeeService.getAllEmployees());
             System.out.println("Loaded Employees: " + employees.size()); // Debugging
         } catch (SQLException e) {
             e.printStackTrace();

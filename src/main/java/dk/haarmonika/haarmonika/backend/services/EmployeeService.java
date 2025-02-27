@@ -13,7 +13,7 @@ public class EmployeeService {
         this.employeeDao = employeeDao;
     }
 
-    public List<Employee> getAllEmployess() throws SQLException {
+    public List<Employee> getAllEmployees() throws SQLException {
         return employeeDao.getAll(null);
     }
 
