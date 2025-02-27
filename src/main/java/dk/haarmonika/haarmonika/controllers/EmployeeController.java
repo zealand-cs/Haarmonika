@@ -73,6 +73,9 @@ public class EmployeeController implements ControllerInterface{
             stage.setOnShown(event -> root.requestFocus());
 
             stage.showAndWait();
+
+
+            loadEmployees();
         } catch (IOException e) {
             e.printStackTrace();
         }

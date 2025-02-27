@@ -4,6 +4,7 @@ import dk.haarmonika.haarmonika.backend.db.Database;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.controllers.EmployeeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -45,6 +46,7 @@ public class EmployeeFormController {
 
 
             showSuccess("Employee created successfully! " + firstName + " " + lastName);
+
 
     } catch (SQLException e) {
             e.printStackTrace();

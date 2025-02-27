@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" prefHeight="400" prefWidth="400"
+<VBox spacing="10" alignment="CENTER" prefHeight="500" prefWidth="500"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController">

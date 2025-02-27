@@ -3,6 +3,7 @@ package dk.haarmonika.haarmonika.controllers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
 
+import java.sql.SQLException;
 import java.util.function.Function;
 
 public class FormatUtility {
@@ -21,4 +22,6 @@ public class FormatUtility {
     public static <T> void setCheckmarkCell(TableColumn<T, String> column, Function<T, String> valueExtractor) {
         column.setCellValueFactory(cellData -> new SimpleStringProperty(checkExists(valueExtractor.apply(cellData.getValue()))));
     }
+
+
 }
