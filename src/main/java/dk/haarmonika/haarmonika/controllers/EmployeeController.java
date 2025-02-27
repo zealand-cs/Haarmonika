@@ -25,7 +25,7 @@ public class EmployeeController implements ControllerInterface{
     private final EmployeeService employeeService;
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
-    EmployeeController(){
+    public EmployeeController(){
         this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
     }
 

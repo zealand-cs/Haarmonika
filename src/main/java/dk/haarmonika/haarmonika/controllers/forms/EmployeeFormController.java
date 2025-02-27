@@ -25,7 +25,7 @@ public class EmployeeFormController {
     @FXML private TextField phoneField;
     @FXML private TextField passwordField;
 
-    EmployeeFormController(){
+    public EmployeeFormController(){
         this.employeeService = new EmployeeService(new EmployeeDao(Database.getInstance().getConnection()));
     }
     public void handleCreateButton(ActionEvent actionEvent) {
