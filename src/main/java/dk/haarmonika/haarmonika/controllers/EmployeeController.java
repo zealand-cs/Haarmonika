@@ -1,6 +1,7 @@
 package dk.haarmonika.haarmonika.controllers;
 
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +22,7 @@ import org.apache.logging.log4j.LogManager;
 
 
 
-public class EmployeeController implements ControllerInterface{
+public class EmployeeController extends BaseController implements ControllerInterface{
     private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
     private final IEmployeeService employeeService;
@@ -94,7 +95,7 @@ public class EmployeeController implements ControllerInterface{
     private void loadEmployees() {
         try {
             employees.setAll(employeeService.getAllEmployees());
-            System.out.println("Loaded Employees: " + employees.size()); // Debugging
+            logger.info("Loaded Employees: {}", employees.size());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,11 +109,13 @@ public class EmployeeController implements ControllerInterface{
             try {
                 employeeService.delete(selectedEmployee.getId());
                 tableEmployees.getItems().remove(selectedEmployee);
+            } catch (EmployeeValidationException e) {
+                showError(e.getMessage());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Ingen medarbejder valgt");
+            System.out.println("No Employee Chosen");
         }
     }
 

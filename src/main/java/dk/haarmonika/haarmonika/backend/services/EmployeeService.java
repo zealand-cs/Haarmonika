@@ -3,6 +3,8 @@ package dk.haarmonika.haarmonika.backend.services;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.daos.IEmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import dk.haarmonika.haarmonika.backend.db.validation.EmployeeValidator;
+import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,10 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void createEmployee(Employee employee) throws SQLException {
+        EmployeeValidator.validate(employee);
         employeeDao.save(employee);
     }
+
 
     @Override
     public Optional<Employee> getEmployeeById(int id) throws SQLException {
@@ -37,10 +41,12 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void updateEmployee(Employee employee) throws SQLException {
+        EmployeeValidator.validate(employee);
         employeeDao.update(employee);
     }
     @Override
     public void delete(int id) throws SQLException {
+        EmployeeValidator.validateId(id);
         employeeDao.delete(id);
     }
 

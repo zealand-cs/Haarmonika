@@ -1,9 +1,11 @@
 package dk.haarmonika.haarmonika.controllers.forms;
 
-import dk.haarmonika.haarmonika.backend.db.Database.DatabaseConnectionPool;
+
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.controllers.BaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,7 +14,7 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 
 
-public class EmployeeFormController {
+public class EmployeeFormController extends BaseController {
 
 
     private final EmployeeService employeeService;
@@ -45,26 +47,15 @@ public class EmployeeFormController {
 
             showSuccess("Employee created successfully! " + firstName + " " + lastName);
 
-
-    } catch (SQLException e) {
+        } catch (EmployeeValidationException e) {  // Catch the validation exception
+            showError(e.getMessage());
+        } catch (SQLException e) {
             e.printStackTrace();
             showError("Error creating employee: " + e.getMessage());
         }
     }
 
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    private void showSuccess(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
+
 
     }

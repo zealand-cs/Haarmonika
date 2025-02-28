@@ -9,6 +9,8 @@ import dk.haarmonika.haarmonika.controllers.SceneController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+//Spring framework for IoC, Inversion of Control
+
 @Configuration
 public class AppConfig {
 

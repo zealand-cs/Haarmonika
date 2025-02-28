@@ -1,5 +1,6 @@
 package dk.haarmonika.haarmonika.backend.db;
 
+//Burde vel ændres til Record som der også bliver foreslået?
 public class Pagination {
 
     public final int page;
