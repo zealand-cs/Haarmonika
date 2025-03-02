@@ -3,6 +3,7 @@ package dk.haarmonika.haarmonika.backend.db.daos;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class CustomerDao extends Dao<Customer> {
     static final int roleId = 50; // TODO: id of customer role
 
