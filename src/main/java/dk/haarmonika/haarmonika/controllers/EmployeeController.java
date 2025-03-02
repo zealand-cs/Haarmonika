@@ -3,6 +3,7 @@ package dk.haarmonika.haarmonika.controllers;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
+import dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -74,14 +75,14 @@ public class EmployeeController extends BaseController implements ControllerInte
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/haarmonika/haarmonika/gui_fxml/EmployeeForm.fxml"));
             Parent root = loader.load();
 
+            EmployeeFormController formController = loader.getController();
+            formController.setEmployee(null);
+
             Stage stage = new Stage();
             stage.setTitle("Add new Employee");
             stage.setScene(new Scene(root));
-
             stage.initModality(Modality.APPLICATION_MODAL);
-
             stage.setOnShown(event -> root.requestFocus());
-
             stage.showAndWait();
 
 
@@ -91,7 +92,34 @@ public class EmployeeController extends BaseController implements ControllerInte
         }
     }
 
+    @FXML
+    private void updateEmployeeButton(ActionEvent actionEvent) {
+        Employee selectedEmployee = tableEmployees.getSelectionModel().getSelectedItem();
+        if (selectedEmployee == null) {
+            showError("Please select an employee to edit.");
+            return;
+        }
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/haarmonika/haarmonika/gui_fxml/EmployeeForm.fxml"));
+            Parent root = loader.load();
+
+            EmployeeFormController formController = loader.getController();
+            formController.setEmployee(selectedEmployee); // Pass selected employee to the form
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Employee");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnShown(event -> root.requestFocus());
+            stage.showAndWait();
+
+            loadEmployees(); // Refresh table after edit
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Failed to load edit window: " + e.getMessage());
+        }
+    }
     private void loadEmployees() {
         try {
             employees.setAll(employeeService.getAllEmployees());

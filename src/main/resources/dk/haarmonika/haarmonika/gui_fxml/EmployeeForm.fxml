@@ -16,5 +16,6 @@
     <TextField fx:id="phoneField" promptText="Enter your Phone number" prefWidth="300"/>
     <TextField fx:id="passwordField" promptText="Enter the desired password" prefWidth="300"/>
 
-    <Button fx:id="createButton" text="create" onAction="#handleCreateButton" prefWidth="300"/>
+    <Button fx:id="createButton" text="Create a new Employee" onAction="#handleCreateButton" prefWidth="300"/>
+    <Button fx:id="saveButton" text="Save new information on Employee" onAction="#handleSaveButton" />
 </VBox>

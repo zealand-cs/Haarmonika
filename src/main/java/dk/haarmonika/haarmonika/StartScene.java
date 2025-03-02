@@ -30,6 +30,13 @@ public class StartScene extends Application {
         return primaryStage;
     }
 
+    @Override
+    public void stop() {
+        if (context != null) {
+            context.close();
+        }
+    }
+
     public static void main(String[] args) {
         launch();
     }

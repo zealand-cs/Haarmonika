@@ -78,7 +78,8 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
                 set.getString("lastName"),
                 set.getString("email"),
                 set.getString("phone"),
-                set.getString("password")
+                set.getString("password"),
+                set.getInt("roleId")
 
         );
     }
@@ -91,8 +92,9 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getPhone());
-            stmt.setInt(5, user.getRoleId());
-            stmt.setInt(6, user.getId());
+            stmt.setString(5, user.getPassword());
+            stmt.setInt(6, user.getRoleId());
+            stmt.setInt(7, user.getId());
             stmt.executeUpdate();
         }
     }
