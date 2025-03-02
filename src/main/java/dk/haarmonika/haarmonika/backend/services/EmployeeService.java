@@ -16,10 +16,12 @@ import java.util.Optional;
 @Service
 public class EmployeeService implements IEmployeeService {
     private final IEmployeeDao employeeDao;
+    private final EmployeeValidator employeeValidator;
 
     @Autowired
-    public EmployeeService(@Qualifier("employeedDao") IEmployeeDao employeeDao) {
+    public EmployeeService(@Qualifier("employeeDao") IEmployeeDao employeeDao, EmployeeValidator employeeValidator) {
         this.employeeDao = employeeDao;
+        this.employeeValidator = employeeValidator;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void createEmployee(Employee employee) throws SQLException {
-        EmployeeValidator.validate(employee);
+        employeeValidator.validate(employee);
         employeeDao.save(employee);
     }
 
@@ -41,12 +43,12 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void updateEmployee(Employee employee) throws SQLException {
-        EmployeeValidator.validate(employee);
+        employeeValidator.validate(employee);
         employeeDao.update(employee);
     }
     @Override
     public void delete(int id) throws SQLException {
-        EmployeeValidator.validateId(id);
+        employeeValidator.validateId(id);
         employeeDao.delete(id);
     }
 

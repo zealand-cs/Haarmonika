@@ -6,16 +6,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dk.haarmonika.haarmonika.controllers.forms.CustomerFormController"
-            prefHeight="500.0" prefWidth="500.0">
+<VBox   spacing="10" alignment="CENTER" prefHeight="500.0" prefWidth="500.0"
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="dk.haarmonika.haarmonika.controllers.forms.CustomerFormController">
+
 
     <Label text="Add New Customer"/>
     <TextField fx:id="firstNameField" promptText="Enter your First Name" prefWidth="300"/>
     <TextField fx:id="lastNameField" promptText="Enter your Last Name" prefWidth="300"/>
     <TextField fx:id="emailField" promptText="Enter your E-mail" prefWidth="300"/>
     <TextField fx:id="phoneField" promptText="Enter your Phone number" prefWidth="300"/>
+    <TextField fx:id="passwordField" promptText="Enter the desired password" prefWidth="300"/>
 
-    <Button fx:id="createButton" text="create" onAction="#handleCreateButton" prefWidth="300"/>
-</AnchorPane>
+    <Button fx:id="createButton" text="Create a new Customer" onAction="#handleCreateButton" prefWidth="300"/>
+    <Button fx:id="saveButton" text="Save new information on Customer" onAction="#handleSaveButton" prefWidth="300"/>
+</VBox>

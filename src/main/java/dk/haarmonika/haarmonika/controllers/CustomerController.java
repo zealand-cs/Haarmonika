@@ -4,7 +4,12 @@ import dk.haarmonika.haarmonika.backend.db.Database;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import dk.haarmonika.haarmonika.backend.exceptions.CustomerValidationException;
+import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.backend.services.ICustomerService;
+import dk.haarmonika.haarmonika.controllers.forms.CustomerFormController;
+import dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,17 +17,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
 
-public class CustomerController implements ControllerInterface{
-    private final CustomerService CustomerService;
+
+public class CustomerController extends BaseController implements ControllerInterface{
+    private static final Logger logger = LogManager.getLogger(CustomerController.class);
+
+    private final ICustomerService customerService;
 
 
     @FXML private TableColumn<Customer, String> colHasEmail;
@@ -35,8 +45,13 @@ public class CustomerController implements ControllerInterface{
 
     private ObservableList customers = FXCollections.observableArrayList();
 
-    public CustomerController(){
-        this.CustomerService = new CustomerService(new CustomerDao(Database.getInstance().getConnection()));
+    public CustomerController(ICustomerService customerService){
+        this.customerService = customerService;
+        if (customerService != null) {
+            logger.info("customerService injected successfully");
+        } else {
+            logger.error("Failed to inject customerService");
+        }
     }
 
     public void initialize() {
@@ -45,11 +60,9 @@ public class CustomerController implements ControllerInterface{
             FormatUtility.setTextCell(colLastName, Customer::getLastName);
             FormatUtility.setTextCell(colRole, e -> "Customer");
 
-
             FormatUtility.setCheckmarkCell(colHasEmail, Customer::getEmail);
             FormatUtility.setCheckmarkCell(colHasPhone, Customer::getPhone);
             FormatUtility.setCheckmarkCell(colHasPassword, Customer::getPassword);
-
 
             tableCustomers.setItems(customers);
     }
@@ -63,35 +76,83 @@ public class CustomerController implements ControllerInterface{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/haarmonika/haarmonika/gui_fxml/CustomerForm.fxml"));
             Parent root = loader.load();
 
+            CustomerFormController formController = loader.getController();
+            formController.setCustomer(null);
+
             Stage stage = new Stage();
             stage.setTitle("Customer creation");
             stage.setScene(new Scene(root));
-
             stage.initModality(Modality.APPLICATION_MODAL);
-
             stage.setOnShown(event -> root.requestFocus());
-
-
             stage.showAndWait();
+
+            loadCustomers();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @FXML
+    private void updateCustomerButton(ActionEvent actionEvent) {
+        Customer selectedCustomer = tableCustomers.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null) {
+            showError("Please select a Customer to edit.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/haarmonika/haarmonika/gui_fxml/CustomerForm.fxml"));
+            Parent root = loader.load();
+
+            CustomerFormController formController = loader.getController();
+            formController.setCustomer(selectedCustomer); // Pass selected employee to the form
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Customer");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnShown(event -> root.requestFocus());
+            stage.showAndWait();
+
+            loadCustomers(); // Refresh table after edit
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Failed to load edit window: " + e.getMessage());
+        }
+    }
 
     private void loadCustomers() {
         try {
             customers.setAll(customerService.getAllCustomers());
-            System.out.println("Loaded Customeers: " + customers.size()); // Debugging
+            logger.info("Loaded Customeers: " + customers.size());
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void deleteCustomerButton() {
+        Customer selectedCustomer = tableCustomers.getSelectionModel().getSelectedItem();
+
+        if (selectedCustomer != null) {
+            try {
+                customerService.delete(selectedCustomer.getId());
+                tableCustomers.getItems().remove(selectedCustomer);
+            } catch (CustomerValidationException e) {
+                showError(e.getMessage());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No Employee Chosen");
+        }
     }
 
+}
 
 
 
 
 
-*/
+
+

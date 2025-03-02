@@ -1,26 +1,26 @@
 package dk.haarmonika.haarmonika.controllers.forms;
 
 
-import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
-import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import dk.haarmonika.haarmonika.controllers.BaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.sql.SQLException;
 
-
+@Controller
 public class EmployeeFormController extends BaseController {
     @FXML private Button saveButton;
     @FXML private Button createButton;
 
 
-    private final EmployeeService employeeService;
+    private final IEmployeeService employeeService;
     private Employee selectedEmployee;
 
     @FXML private TextField firstNameField;
@@ -29,19 +29,18 @@ public class EmployeeFormController extends BaseController {
     @FXML private TextField phoneField;
     @FXML private TextField passwordField;
 
-    public EmployeeFormController(){
-        this.employeeService = new EmployeeService(new EmployeeDao());
+    @Autowired
+    public EmployeeFormController(IEmployeeService employeeService){
+        this.employeeService = employeeService;
     }
 
     public void setEmployee(Employee employee) {
         this.selectedEmployee = employee;
         if (employee != null) {
-            // Editing an existing employee
             populateFields(employee);
             saveButton.setVisible(true);
             createButton.setVisible(false);
         } else {
-            // Creating a new employee
             clearFields();
             saveButton.setVisible(false);
             createButton.setVisible(true);

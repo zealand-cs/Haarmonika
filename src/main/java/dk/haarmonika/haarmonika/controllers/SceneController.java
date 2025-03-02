@@ -1,12 +1,15 @@
 package dk.haarmonika.haarmonika.controllers;
 
 import dk.haarmonika.haarmonika.StartScene;
+import dk.haarmonika.haarmonika.backend.db.AppConfig;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,10 +19,9 @@ public class SceneController {
     private static final Map<String, Parent> sceneCache = new HashMap<>();
     private static final Map<String, ControllerInterface> controllerCache = new HashMap<>();
 
+    private static final ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-    /**
 
-     */
     public static void switchScene(String fxmlFile) {
         try {
             Parent root;
@@ -31,7 +33,7 @@ public class SceneController {
 
                 if (fxmlFile.equals("EmployeePage.fxml")) {
 
-                    IEmployeeService employeeService = new EmployeeService(new EmployeeDao());
+                    IEmployeeService employeeService = context.getBean(IEmployeeService.class);
                     loader.setControllerFactory(param -> new EmployeeController(employeeService));
                 }
 
