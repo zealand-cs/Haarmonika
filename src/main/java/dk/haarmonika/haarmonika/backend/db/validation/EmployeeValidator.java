@@ -19,7 +19,8 @@ public class EmployeeValidator {
     ❌ Does not allow invalid characters like !, #, ,, &, *, or spaces
     */
 
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9ÆØÅæøå._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
 
     /*
     ✅ Allows digits (0-9), spaces, hyphens (-), and an optional leading '+'

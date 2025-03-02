@@ -47,7 +47,7 @@ public class EmployeeFormController extends BaseController {
 
             showSuccess("Employee created successfully! " + firstName + " " + lastName);
 
-        } catch (EmployeeValidationException e) {  // Catch the validation exception
+        } catch (EmployeeValidationException e) {
             showError(e.getMessage());
         } catch (SQLException e) {
             e.printStackTrace();

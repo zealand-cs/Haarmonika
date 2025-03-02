@@ -28,9 +28,9 @@ public class SceneController {
             if (!sceneCache.containsKey(fxmlFile)) {
                 FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/dk/haarmonika/haarmonika/gui_fxml/" + fxmlFile));
 
-                // Hvis EmployeeView skal loades, så injiceres EmployeeService
+
                 if (fxmlFile.equals("EmployeePage.fxml")) {
-                    // Opret instans af EmployeeService og injicer den i controlleren
+
                     IEmployeeService employeeService = new EmployeeService(new EmployeeDao());
                     loader.setControllerFactory(param -> new EmployeeController(employeeService));
                 }
