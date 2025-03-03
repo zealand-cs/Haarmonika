@@ -1,5 +1,7 @@
 CREATE DATABASE Haarmonika;
 
+USE Haarmonika;
+
 CREATE TABLE userRole (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(32) NOT NULL

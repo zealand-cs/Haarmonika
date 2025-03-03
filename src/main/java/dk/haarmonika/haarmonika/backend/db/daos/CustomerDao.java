@@ -33,7 +33,7 @@ public class CustomerDao extends Dao<Customer> implements ICustomerDao {
             stmt.setString(5, user.getPassword());
             stmt.setInt(6, roleId);
             int rowsAffected = stmt.executeUpdate();
-            logger.info("Creation Successful, rows affected: {}", rowsAffected);
+            logger.info("Customer Creation Successful, rows affected: {}", rowsAffected);
         }
 
     }
@@ -68,7 +68,7 @@ public class CustomerDao extends Dao<Customer> implements ICustomerDao {
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, safePagination.perPage());
-            stmt.setInt(2, safePagination.perPage() * safePagination.page()); // Consider (page - 1) if 1-based index
+            stmt.setInt(2, safePagination.perPage() * safePagination.page());
 
             try (var res = stmt.executeQuery()) {
                 while (res.next()) {
@@ -120,7 +120,7 @@ public class CustomerDao extends Dao<Customer> implements ICustomerDao {
         }
     }
 
-   //Dont know if needed, just same deletemethod as in Employee
+
 
 public void delete(int id) throws SQLException {
         try (Connection connection = getConnection();
