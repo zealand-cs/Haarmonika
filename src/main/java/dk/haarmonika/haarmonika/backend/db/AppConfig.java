@@ -1,16 +1,10 @@
 package dk.haarmonika.haarmonika.backend.db;
 
 
-import dk.haarmonika.haarmonika.backend.db.daos.CustomerDao;
-import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
-import dk.haarmonika.haarmonika.backend.db.daos.ICustomerDao;
-import dk.haarmonika.haarmonika.backend.db.daos.IEmployeeDao;
+import dk.haarmonika.haarmonika.backend.db.daos.*;
 import dk.haarmonika.haarmonika.backend.db.validation.CustomerValidator;
 import dk.haarmonika.haarmonika.backend.db.validation.EmployeeValidator;
-import dk.haarmonika.haarmonika.backend.services.CustomerService;
-import dk.haarmonika.haarmonika.backend.services.EmployeeService;
-import dk.haarmonika.haarmonika.backend.services.ICustomerService;
-import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
+import dk.haarmonika.haarmonika.backend.services.*;
 import dk.haarmonika.haarmonika.controllers.SceneController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,5 +46,14 @@ public class AppConfig {
     public ICustomerDao customerDao() {
         return new CustomerDao();
     }
+    /*@Bean
+    public IServiceService serviceDao() {
+        return new ServiceDao();
+    }
+
+    @Bean
+    public IServiceService serviceService(IServiceDao serviceDao, ServiceValidator serviceValidator) {
+        return new ServiceService(serviceDao, serviceValidator);
+    }*/
 
 }
