@@ -1,4 +1,4 @@
-/*
+
 package dk.haarmonika.haarmonika.backend.db.validation;
 
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
@@ -12,9 +12,10 @@ public class CustomerValidator extends BaseValidator<Customer>{
         if (customer == null) {
             throw new CustomerValidationException("Customer cannot be null!");
         }
-        validateName(customer.getName(), "Name");
+        validateName(customer.getFirstName(), "First name");
+        validateName(customer.getLastName(), "Last name");
         validateEmail(customer.getEmail());
         validatePhone(customer.getPhone());
     }
 }
-*/
+

@@ -21,4 +21,8 @@ public class LandingPageController implements ControllerInterface {
     public void onEmployeeButtonClick(ActionEvent actionEvent) throws IOException {
         SceneController.switchScene("EmployeePage.fxml");
     }
+
+    public void onCustomerButtonClick(ActionEvent actionEvent) throws IOException{
+        SceneController.switchScene("CustomerPage.fxml");
+    }
 }

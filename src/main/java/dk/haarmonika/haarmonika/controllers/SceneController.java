@@ -4,6 +4,7 @@ import dk.haarmonika.haarmonika.StartScene;
 import dk.haarmonika.haarmonika.backend.db.AppConfig;
 import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
+import dk.haarmonika.haarmonika.backend.services.ICustomerService;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,6 +36,11 @@ public class SceneController {
 
                     IEmployeeService employeeService = context.getBean(IEmployeeService.class);
                     loader.setControllerFactory(param -> new EmployeeController(employeeService));
+                }
+                if (fxmlFile.equals("CustomerPage.fxml")) {
+
+                    ICustomerService customerService = context.getBean(ICustomerService.class);
+                    loader.setControllerFactory(param -> new CustomerController(customerService));
                 }
 
                 root = loader.load();

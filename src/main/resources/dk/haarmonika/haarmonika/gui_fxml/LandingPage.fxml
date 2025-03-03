@@ -13,4 +13,5 @@
 
   <Label fx:id="welcomeText"/>
   <Button text="Employee" onAction="#onEmployeeButtonClick"/>
+  <Button text="Customer" onAction="#onCustomerButtonClick" />
 </VBox>

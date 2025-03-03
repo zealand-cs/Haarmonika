@@ -52,25 +52,27 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
 
                     return Optional.of(fromResultSet(res));
                 }
+                logger.warn("No employee found with id: {}", id);
+                return Optional.empty();
             }
         }
-        logger.warn("No employee found with id: {}", id);
-        return Optional.empty();
     }
+
+
 
 
     @Override
     public List<Employee> getAll(Pagination pagination) throws SQLException {
         Pagination safePagination = (pagination != null) ? pagination : new Pagination(0, 10);
 
-
+        List<Employee> users = new ArrayList<>();
         String query = readQuery + " LIMIT ? OFFSET ?";
         try (Connection connection = getConnection();
             var stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, safePagination.perPage());
             stmt.setInt(2, safePagination.perPage() * safePagination.page());
 
-            List<Employee> users = new ArrayList<>();
+
             try (var res = stmt.executeQuery()) {
                 while (res.next()) {
                     users.add(fromResultSet(res));

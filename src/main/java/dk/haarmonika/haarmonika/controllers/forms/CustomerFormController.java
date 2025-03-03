@@ -1,12 +1,9 @@
-/*
+
 package dk.haarmonika.haarmonika.controllers.forms;
 
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
-import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.exceptions.CustomerValidationException;
-import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import dk.haarmonika.haarmonika.backend.services.ICustomerService;
-import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import dk.haarmonika.haarmonika.controllers.BaseController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,13 +14,13 @@ import org.springframework.stereotype.Controller;
 
 import java.sql.SQLException;
 
-@Controller
+
 public class CustomerFormController extends BaseController {
     @FXML private Button createButton;
     @FXML private Button saveButton;
 
 
-    private final ICustomerService customerService;
+    private ICustomerService customerService;
     private Customer selectedCustomer;
 
 
@@ -33,11 +30,14 @@ public class CustomerFormController extends BaseController {
     @FXML private TextField phoneField;
     @FXML private TextField passwordField;
 
-    @Autowired
-    public CustomerFormController(ICustomerService customerService){
+
+    public CustomerFormController(){}
+
+    public void setCustomerService(ICustomerService customerService) {
         this.customerService = customerService;
     }
 
+    @FXML
     public void setCustomer(Customer customer) {
         this.selectedCustomer = customer;
         if (customer != null) {
@@ -56,7 +56,7 @@ public class CustomerFormController extends BaseController {
         lastNameField.setText(customer.getLastName());
         emailField.setText(customer.getEmail());
         phoneField.setText(customer.getPhone());
-        passwordField.setText(customer.getPassword());
+        passwordField.setText(customer.getPassword() != null ? customer.getPassword() : "");
     }
 
     @FXML
@@ -65,6 +65,9 @@ public class CustomerFormController extends BaseController {
             validateAndProcessCustomer();
         } catch (CustomerValidationException | SQLException e) {
             showError(e.getMessage());
+        } catch (Exception e) {
+            showError("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     @FXML
@@ -111,7 +114,7 @@ public class CustomerFormController extends BaseController {
         selectedCustomer.setPassword(password);
 
         customerService.updateCustomer(selectedCustomer);
-        showSuccess("Employee updated successfully!");
+        showSuccess("Customer updated successfully!");
     }
 
 
@@ -123,4 +126,4 @@ public class CustomerFormController extends BaseController {
         passwordField.clear();
     }
 }
-*/
+

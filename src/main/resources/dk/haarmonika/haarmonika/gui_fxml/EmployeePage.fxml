@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -23,9 +20,9 @@
                 <TableColumn fx:id="colFirstName" text="First Name"/>
                 <TableColumn fx:id="colLastName" text="Last Name"/>
                 <TableColumn fx:id="colRole" text="Role"/>
-                <TableColumn fx:id="colHasEmail" text="Email"/>
-                <TableColumn fx:id="colHasPhone" text="Phone"/>
-                <TableColumn fx:id="colHasPassword" text="Password"/>
+                <TableColumn fx:id="colHasEmail" text="Email" prefWidth="50"/>
+                <TableColumn fx:id="colHasPhone" text="Phone" prefWidth="50"/>
+                <TableColumn fx:id="colHasPassword" text="Password" prefWidth="50"/>
             </columns>
         </TableView>
 

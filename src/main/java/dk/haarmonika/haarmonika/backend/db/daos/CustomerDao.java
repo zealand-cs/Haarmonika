@@ -1,4 +1,4 @@
-/*
+
 package dk.haarmonika.haarmonika.backend.db.daos;
 import dk.haarmonika.haarmonika.backend.db.Pagination;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class CustomerDao extends Dao<Customer> {
+public class CustomerDao extends Dao<Customer> implements ICustomerDao {
     static final int roleId = 50; // TODO: id of customer role
     private static final Logger logger = LoggerFactory.getLogger(CustomerDao.class);
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
     static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
-    static final String updateQuery = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
-    static final String deleteQuery = "DELETE FROM users WHERE id = ?";
+    static final String updateQuery = "UPDATE user SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
+    static final String deleteQuery = "DELETE FROM user WHERE id = ?";
 
     @Override
     public void save(Customer user) throws SQLException {
@@ -35,6 +35,7 @@ public class CustomerDao extends Dao<Customer> {
             int rowsAffected = stmt.executeUpdate();
             logger.info("Creation Successful, rows affected: {}", rowsAffected);
         }
+
     }
 
     @Override
@@ -42,37 +43,43 @@ public class CustomerDao extends Dao<Customer> {
         logger.info("Fetching customer with id: {}", id);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(readQuery + " WHERE id = ?")) {
-             stmt.setInt(1, id);
-             var res = stmt.executeQuery();
+            stmt.setInt(1, id);
+            try (var res = stmt.executeQuery()) {
 
-             Optional<Customer> user = Optional.empty();
-             if (res.next()) {
-                user = Optional.ofNullable(fromResultSet(res));
+                if (res.next()) {
+                    return Optional.ofNullable(fromResultSet(res));
+                }
+
+                logger.warn("No employee found with id: {}", id);
+                return Optional.empty();
+
             }
-            logger.warn("No employee found with id: {}", id);
-            return user;
         }
     }
 
 
     @Override
     public List<Customer> getAll(Pagination pagination) throws SQLException {
-        Pagination safePagination = (pagination !=null) ? pagination : new Pagination(0, 10);
+        Pagination safePagination = (pagination != null) ? pagination : new Pagination(0, 10);
+
         String query = readQuery + " LIMIT ? OFFSET ?";
-        try (Connection connection = getConnection();
-            var stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, safePagination.perPage());
-            stmt.setInt(2, safePagination.perPage() * safePagination.page());
-
         List<Customer> users = new ArrayList<>();
-        try (var res = stmt.executeQuery()) {
-            while (res.next()) {
-                users.add(fromResultSet(res));
 
-          }
-       } return users;
+        try (Connection connection = getConnection();
+             var stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, safePagination.perPage());
+            stmt.setInt(2, safePagination.perPage() * safePagination.page()); // Consider (page - 1) if 1-based index
 
+            try (var res = stmt.executeQuery()) {
+                while (res.next()) {
+                    users.add(fromResultSet(res));
+                }
+            }
+        }
+        return users;
     }
+
+
 
 
     @Override
@@ -123,7 +130,7 @@ public void delete(int id) throws SQLException {
         }
     }
 
-}}
+}
 
 
-*/
+

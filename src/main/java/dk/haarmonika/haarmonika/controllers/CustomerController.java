@@ -1,15 +1,12 @@
-/*
+
 package dk.haarmonika.haarmonika.controllers;
 
 
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
 
 import dk.haarmonika.haarmonika.backend.exceptions.CustomerValidationException;
-import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
-import dk.haarmonika.haarmonika.backend.services.EmployeeService;
 import dk.haarmonika.haarmonika.backend.services.ICustomerService;
 import dk.haarmonika.haarmonika.controllers.forms.CustomerFormController;
-import dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,7 +40,7 @@ public class CustomerController extends BaseController implements ControllerInte
     @FXML private TableColumn<Customer, String> colRole;
     @FXML private TableView<Customer> tableCustomers;
 
-    private ObservableList customers = FXCollections.observableArrayList();
+    private ObservableList<Customer> customers = FXCollections.observableArrayList();
 
     public CustomerController(ICustomerService customerService){
         this.customerService = customerService;
@@ -77,6 +74,7 @@ public class CustomerController extends BaseController implements ControllerInte
             Parent root = loader.load();
 
             CustomerFormController formController = loader.getController();
+            formController.setCustomerService(customerService);
             formController.setCustomer(null);
 
             Stage stage = new Stage();
@@ -105,7 +103,8 @@ public class CustomerController extends BaseController implements ControllerInte
             Parent root = loader.load();
 
             CustomerFormController formController = loader.getController();
-            formController.setCustomer(selectedCustomer); // Pass selected employee to the form
+            formController.setCustomerService(customerService);
+            formController.setCustomer(selectedCustomer);
 
             Stage stage = new Stage();
             stage.setTitle("Edit Customer");
@@ -114,7 +113,7 @@ public class CustomerController extends BaseController implements ControllerInte
             stage.setOnShown(event -> root.requestFocus());
             stage.showAndWait();
 
-            loadCustomers(); // Refresh table after edit
+            loadCustomers();
         } catch (IOException e) {
             e.printStackTrace();
             showError("Failed to load edit window: " + e.getMessage());
@@ -122,9 +121,12 @@ public class CustomerController extends BaseController implements ControllerInte
     }
 
     private void loadCustomers() {
+        logger.info("Loading Customers...");
         try {
             customers.setAll(customerService.getAllCustomers());
             logger.info("Loaded Customeers: " + customers.size());
+        } catch (CustomerValidationException e) {
+            showError(e.getMessage());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -144,9 +146,10 @@ public class CustomerController extends BaseController implements ControllerInte
                 e.printStackTrace();
             }
         } else {
-            System.out.println("No Employee Chosen");
+            System.out.println("No Customer Chosen");
         }
     }
+
 
 }
 
@@ -156,4 +159,4 @@ public class CustomerController extends BaseController implements ControllerInte
 
 
 
-*/
+
