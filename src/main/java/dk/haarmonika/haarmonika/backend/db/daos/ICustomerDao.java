@@ -2,11 +2,14 @@ package dk.haarmonika.haarmonika.backend.db.daos;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+
+@Repository
 public interface ICustomerDao {
 
     List<Customer> getAll(Pagination pagination) throws SQLException;

@@ -54,22 +54,80 @@ direction LR
         +void deleteService()
     }
 
-    class Database {
-        - static volatile Database instance
-        - static HikariDataSource dataSource
-        + static Database getInstance()
-        + Connection getConnection()
-        + static void close()
+    
+    class DatabaseConfig {
+        - Logger logger
+        - HikariConfig config
+        + getConfig() HikariConfig
     }
 
-    class CustomerDAO {
-        +List<Customer> getAllCustomers()
-        +void addCustomer(Customer customer)
+    class DatabaseConnectionPool {
+        - Logger logger
+        - static volatile DatabaseConnectionPool instance
+        - HikariDataSource dataSource
+        + getInstance() DatabaseConnectionPool
+        + getDataSource() HikariDataSource
     }
 
-    class BookingDAO {
+    class DatabaseConnectionManager {
+        - Logger logger
+        - static DatabaseConnectionPool pool
+        + getConnection() Connection
+        + close() void
+    }
+    
+    class Dao {
+        <<abstract>>
+        +Connection getConnection()
+    }
+
+    class CustomerDao {
+        +void save(Customer user)
+        +Optional~Customer~ get(int id)
+        +List~Customer~ getAll(Pagination pagination)
+        +Customer fromResultSet(ResultSet set)
+        +void update(Customer user)
+        +void delete(Customer user)
+        +void delete(int id)
+    }
+
+    class EmployeeDao {
+        +void save(Employee user)
+        +Optional~Employee~ get(int id)
+        +List~Employee~ getAll(Pagination pagination)
+        +Employee fromResultSet(ResultSet set)
+        +void update(Employee user)
+        +void delete(Employee user)
+        +void delete(int id)
+    }
+    class ICustomerDao {
+        +List~Customer~ getAll(Pagination pagination)
+        +void save(Customer customer)
+        +Optional~Customer~ get(int id)
+        +void update(Customer customer)
+        +void delete(int id)
+    }
+    
+    class IEmployeeDao {
+        +List~Employee~ getAll(Pagination pagination)
+        +void save(Employee employee)
+        +Optional~Employee~ get(int id)
+        +void update(Employee employee)
+        +void delete(int id)
+    }
+    
+
+    class BookingDao {
         +List<Booking> getBookingsByCustomer(int customerId)
         +void addBooking(Booking booking)
+    }
+
+    class IBookingDao {
+        +List~Booking~ getAll(Pagination pagination)
+        +void save(Booking booking)
+        +Optional~Booking~ get(int id)
+        +void update(Booking booking)
+        +void delete(int id)
     }
 
     Customer "1" -- "1..n" Booking : Has
@@ -78,7 +136,15 @@ direction LR
     IController <|-- CustomerController
     IController <|-- BookingController
     IController <|-- ServiceController
-    Database <.. CustomerDAO
-    Database <.. BookingDAO
+    DatabaseConfig --> DatabaseConnectionPool : Uses
+    DatabaseConnectionPool --> DatabaseConnectionManager : Singleton
+    DatabaseConnectionManager --> DatabaseConnectionPool : Uses
+    Dao <|-- EmployeeDao
+    Dao <|-- CustomerDao
+    EmployeeDao ..|> IEmployeeDao
+    CustomerDao ..|> ICustomerDao
+    Dao <|-- BookingDao
+    BookingDao ..|>IBookingDao
+    
 
 ```
