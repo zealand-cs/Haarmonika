@@ -1,3 +1,4 @@
+/*
 package dk.haarmonika.haarmonika.backend.db.validation;
 
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
@@ -16,3 +17,4 @@ public class CustomerValidator extends BaseValidator<Customer>{
         validatePhone(customer.getPhone());
     }
 }
+*/

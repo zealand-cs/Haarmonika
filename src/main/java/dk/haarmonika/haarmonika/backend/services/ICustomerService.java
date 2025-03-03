@@ -1,3 +1,4 @@
+/*
 package dk.haarmonika.haarmonika.backend.services;
 
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
@@ -15,3 +16,4 @@ public interface ICustomerService {
     void updateCustomer(Customer customer) throws SQLException;
     void delete(int id) throws SQLException;
 }
+*/

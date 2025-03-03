@@ -9,18 +9,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.sql.SQLException;
 
-@Controller
+
 public class EmployeeFormController extends BaseController {
     @FXML private Button saveButton;
     @FXML private Button createButton;
 
 
-    private final IEmployeeService employeeService;
+    private IEmployeeService employeeService;
     private Employee selectedEmployee;
 
     @FXML private TextField firstNameField;
@@ -29,11 +27,13 @@ public class EmployeeFormController extends BaseController {
     @FXML private TextField phoneField;
     @FXML private TextField passwordField;
 
-    @Autowired
-    public EmployeeFormController(IEmployeeService employeeService){
+
+    public EmployeeFormController(){}
+    public void setEmployeeService(IEmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
+    @FXML
     public void setEmployee(Employee employee) {
         this.selectedEmployee = employee;
         if (employee != null) {
@@ -52,7 +52,7 @@ public class EmployeeFormController extends BaseController {
         lastNameField.setText(employee.getLastName());
         emailField.setText(employee.getEmail());
         phoneField.setText(employee.getPhone());
-        passwordField.setText(employee.getPassword());
+        passwordField.setText(employee.getPassword() != null ? employee.getPassword() : "");
     }
 
     @FXML
@@ -61,7 +61,11 @@ public class EmployeeFormController extends BaseController {
             validateAndProcessEmployee();
         } catch (EmployeeValidationException | SQLException e) {
             showError(e.getMessage());
-        }
+
+        } catch (Exception e) {
+        showError("Unexpected error: " + e.getMessage());
+        e.printStackTrace();
+    }
     }
 
 

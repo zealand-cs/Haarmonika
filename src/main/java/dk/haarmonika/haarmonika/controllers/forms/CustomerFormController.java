@@ -1,3 +1,4 @@
+/*
 package dk.haarmonika.haarmonika.controllers.forms;
 
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
@@ -122,3 +123,4 @@ public class CustomerFormController extends BaseController {
         passwordField.clear();
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 
 package dk.haarmonika.haarmonika.backend.services;
 
@@ -53,3 +54,4 @@ public class CustomerService implements ICustomerService {
     }
 }
 
+*/

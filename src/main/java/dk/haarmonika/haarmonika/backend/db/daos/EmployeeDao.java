@@ -2,6 +2,8 @@ package dk.haarmonika.haarmonika.backend.db.daos;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,7 @@ import java.util.Optional;
 
 @Repository
 public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeDao.class);
     static final int roleId = 100; // TODO: id of employee role
 
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
@@ -23,6 +26,7 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
 
     @Override
     public void save(Employee user) throws SQLException {
+        logger.info("Saving employee: {}", user);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(createQuery)) {
         stmt.setString(1, user.getFirstName());
@@ -31,21 +35,26 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
         stmt.setString(4, user.getPhone());
         stmt.setString(5, user.getPassword());
         stmt.setInt(6, roleId);
-        stmt.executeUpdate();
+        int rowsAffected = stmt.executeUpdate();
+        logger.info("Save successful, rows affected: {}", rowsAffected);
+
         }
     }
 
     @Override
     public Optional<Employee> get(int id) throws SQLException {
+        logger.info("Fetching employee with id: {}", id);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(readQuery + " WHERE id = ?")) {
             stmt.setInt(1, id);
             try (var res = stmt.executeQuery()) {
                 if (res.next()) {
+
                     return Optional.of(fromResultSet(res));
                 }
             }
         }
+        logger.warn("No employee found with id: {}", id);
         return Optional.empty();
     }
 
@@ -87,6 +96,7 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
 
     @Override
     public void update(Employee user) throws SQLException {
+        logger.info("Updating employee: {}", user);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(updateQuery)) {
             stmt.setString(1, user.getFirstName());
@@ -96,25 +106,34 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
             stmt.setString(5, user.getPassword());
             stmt.setInt(6, user.getRoleId());
             stmt.setInt(7, user.getId());
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            logger.info("Update successful, rows affected: {}", rowsAffected);
         }
     }
 
     @Override
     public void delete(Employee user) throws SQLException {
+        logger.info("Deleting user: {}", user);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(deleteQuery)) {
             stmt.setInt(1, user.getId());
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            logger.info("Delete Succesful", rowsAffected);
         }
     }
-
+    //Denne bliver brugt.
     @Override
     public void delete(int id) throws SQLException {
+        logger.info("Deleting employee with id: {}", id);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(deleteQuery)) {
             stmt.setInt(1, id);
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                logger.info("Delete successful, rows affected: {}", rowsAffected);
+            } else {
+                logger.warn("No employee found to delete with id: {}", id);
+            }
         }
     }
 }

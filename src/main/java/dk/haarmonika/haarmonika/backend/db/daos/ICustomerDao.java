@@ -1,3 +1,4 @@
+/*
 package dk.haarmonika.haarmonika.backend.db.daos;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
@@ -18,3 +19,4 @@ public interface ICustomerDao {
     void update(Customer customer) throws SQLException;
     void delete (int id) throws SQLException;
 }
+*/

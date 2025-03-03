@@ -5,7 +5,8 @@ CREATE TABLE userRole (
     name VARCHAR(32) NOT NULL
 );
 
-INSERT INTO userRole (name) VALUES ("employee", "customer");
+INSERT INTO userRole (name) VALUES ("employee");
+INSERT INTO userRole (name) VALUES ("customer");
 
 CREATE TABLE user (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

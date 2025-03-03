@@ -29,4 +29,9 @@ public class AppConfig {
     public SceneController sceneController() {
         return new SceneController();
     }
+
+    @Bean
+    public EmployeeValidator employeeValidator() {
+        return new EmployeeValidator();
+    }
 }

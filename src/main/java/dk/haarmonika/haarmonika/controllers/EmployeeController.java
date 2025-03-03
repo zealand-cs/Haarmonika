@@ -76,6 +76,7 @@ public class EmployeeController extends BaseController implements ControllerInte
             Parent root = loader.load();
 
             EmployeeFormController formController = loader.getController();
+            formController.setEmployeeService(employeeService);
             formController.setEmployee(null);
 
             Stage stage = new Stage();
@@ -87,6 +88,8 @@ public class EmployeeController extends BaseController implements ControllerInte
 
 
             loadEmployees();
+        } catch (EmployeeValidationException e) {
+            showError(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,9 +105,11 @@ public class EmployeeController extends BaseController implements ControllerInte
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/haarmonika/haarmonika/gui_fxml/EmployeeForm.fxml"));
+
             Parent root = loader.load();
 
             EmployeeFormController formController = loader.getController();
+            formController.setEmployeeService(employeeService);
             formController.setEmployee(selectedEmployee); // Pass selected employee to the form
 
             Stage stage = new Stage();
@@ -115,6 +120,8 @@ public class EmployeeController extends BaseController implements ControllerInte
             stage.showAndWait();
 
             loadEmployees(); // Refresh table after edit
+        } catch (EmployeeValidationException e) {
+            showError(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
             showError("Failed to load edit window: " + e.getMessage());
@@ -124,6 +131,8 @@ public class EmployeeController extends BaseController implements ControllerInte
         try {
             employees.setAll(employeeService.getAllEmployees());
             logger.info("Loaded Employees: {}", employees.size());
+        } catch (EmployeeValidationException e) {
+            showError(e.getMessage());
         } catch (SQLException e) {
             e.printStackTrace();
         }

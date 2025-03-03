@@ -1,9 +1,9 @@
+/*
 package dk.haarmonika.haarmonika.controllers;
 
-import dk.haarmonika.haarmonika.backend.db.Database;
-import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
+
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
-import dk.haarmonika.haarmonika.backend.db.entities.Employee;
+
 import dk.haarmonika.haarmonika.backend.exceptions.CustomerValidationException;
 import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import dk.haarmonika.haarmonika.backend.services.EmployeeService;
@@ -156,3 +156,4 @@ public class CustomerController extends BaseController implements ControllerInte
 
 
 
+*/

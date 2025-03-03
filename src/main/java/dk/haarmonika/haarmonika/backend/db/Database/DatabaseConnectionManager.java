@@ -15,7 +15,9 @@ public class DatabaseConnectionManager {
     public static Connection getConnection() {
         try {
             logger.info("Retrieving a database connection...");
-            return pool.getDataSource().getConnection();
+            Connection connection = pool.getDataSource().getConnection();
+            logger.info("Database connection successfully retrieved.");
+            return connection;
         } catch (SQLException e) {
             logger.error("Error retrieving a database connection: {}", e.getMessage(), e);
             return null;

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+    <?import javafx.scene.control.*?>
+    <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" prefHeight="500" prefWidth="500"
-      xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController">
+    <VBox spacing="10" alignment="CENTER" prefHeight="500" prefWidth="500"
+          xmlns="http://javafx.com/javafx/17"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="dk.haarmonika.haarmonika.controllers.forms.EmployeeFormController">
 
-    <Label text="New Employee"/>
+        <Label text="New Employee"/>
 
 
-    <TextField fx:id="firstNameField" promptText="Enter your First Name" prefWidth="300"/>
-    <TextField fx:id="lastNameField" promptText="Enter your Last Name" prefWidth="300"/>
-    <TextField fx:id="emailField" promptText="Enter your E-mail" prefWidth="300"/>
-    <TextField fx:id="phoneField" promptText="Enter your Phone number" prefWidth="300"/>
-    <TextField fx:id="passwordField" promptText="Enter the desired password" prefWidth="300"/>
+        <TextField fx:id="firstNameField" promptText="Enter your First Name" prefWidth="300"/>
+        <TextField fx:id="lastNameField" promptText="Enter your Last Name" prefWidth="300"/>
+        <TextField fx:id="emailField" promptText="Enter your E-mail" prefWidth="300"/>
+        <TextField fx:id="phoneField" promptText="Enter your Phone number" prefWidth="300"/>
+        <TextField fx:id="passwordField" promptText="Enter the desired password" prefWidth="300"/>
 
-    <Button fx:id="createButton" text="Create a new Employee" onAction="#handleCreateButton" prefWidth="300"/>
-    <Button fx:id="saveButton" text="Save new information on Employee" onAction="#handleSaveButton" />
-</VBox>
+        <Button fx:id="createButton" text="Create a new Employee" onAction="#handleCreateButton" prefWidth="300"/>
+        <Button fx:id="saveButton" text="Save new information on Employee" onAction="#handleSaveButton" />
+    </VBox>

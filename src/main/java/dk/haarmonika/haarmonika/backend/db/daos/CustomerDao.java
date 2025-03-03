@@ -1,3 +1,4 @@
+/*
 
 package dk.haarmonika.haarmonika.backend.db.daos;
 
@@ -51,7 +52,8 @@ public class CustomerDao extends Dao<Customer> {
         }
     }
 
-    @Override
+   */
+/* @Override
     public List<Customer> getAll(Pagination pagination) throws SQLException {
         var query = readQuery;
         // Add pagination to query if we want pages
@@ -68,7 +70,8 @@ public class CustomerDao extends Dao<Customer> {
 
             return users;
         }
-    }
+    }*//*
+
 
     @Override
     public Customer fromResultSet(ResultSet set) throws SQLException {
@@ -109,12 +112,15 @@ public class CustomerDao extends Dao<Customer> {
     }
 
    //Dont know if needed, just same deletemethod as in Employee
-    /*public void delete (int id) throws SQLException {
+    */
+/*public void delete (int id) throws SQLException {
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(deleteQuery)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
-    }*/
+    }*//*
+
 }
 
+*/
