@@ -129,6 +129,7 @@ public class EmployeeController extends BaseController implements ControllerInte
     }
 
     private void loadEmployees() {
+        logger.info("Loading Employees...");
         try {
             employees.setAll(employeeService.getAllEmployees());
             logger.info("Loaded Employees: {}", employees.size());

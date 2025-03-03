@@ -1,11 +1,10 @@
 /*
-
 package dk.haarmonika.haarmonika.backend.db.daos;
-
 import dk.haarmonika.haarmonika.backend.db.Pagination;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
 import org.springframework.stereotype.Repository;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,7 @@ import java.util.Optional;
 @Repository
 public class CustomerDao extends Dao<Customer> {
     static final int roleId = 50; // TODO: id of customer role
-
+    private static final Logger logger = LoggerFactory.getLogger(CustomerDao.class);
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
     static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
     static final String updateQuery = "UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
@@ -24,6 +23,7 @@ public class CustomerDao extends Dao<Customer> {
 
     @Override
     public void save(Customer user) throws SQLException {
+        logger.info("Saving customer: {}", user);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(createQuery)) {
             stmt.setString(1, user.getFirstName());
@@ -32,12 +32,14 @@ public class CustomerDao extends Dao<Customer> {
             stmt.setString(4, user.getPhone());
             stmt.setString(5, user.getPassword());
             stmt.setInt(6, roleId);
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            logger.info("Creation Successful, rows affected: {}", rowsAffected);
         }
     }
 
     @Override
     public Optional<Customer> get(int id) throws SQLException {
+        logger.info("Fetching customer with id: {}", id);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(readQuery + " WHERE id = ?")) {
              stmt.setInt(1, id);
@@ -47,30 +49,30 @@ public class CustomerDao extends Dao<Customer> {
              if (res.next()) {
                 user = Optional.ofNullable(fromResultSet(res));
             }
-
+            logger.warn("No employee found with id: {}", id);
             return user;
         }
     }
 
-   */
-/* @Override
-    public List<Customer> getAll(Pagination pagination) throws SQLException {
-        var query = readQuery;
-        // Add pagination to query if we want pages
-        if (pagination != null) {
-            query += " LIMIT " + pagination.perPage + " OFFSET " + pagination.perPage * pagination.page;
-        }
-        var stmt = connection.prepareStatement(query);
-        try (var res = stmt.executeQuery()) {
 
-            List<Customer> users = new ArrayList<>();
+    @Override
+    public List<Customer> getAll(Pagination pagination) throws SQLException {
+        Pagination safePagination = (pagination !=null) ? pagination : new Pagination(0, 10);
+        String query = readQuery + " LIMIT ? OFFSET ?";
+        try (Connection connection = getConnection();
+            var stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, safePagination.perPage());
+            stmt.setInt(2, safePagination.perPage() * safePagination.page());
+
+        List<Customer> users = new ArrayList<>();
+        try (var res = stmt.executeQuery()) {
             while (res.next()) {
                 users.add(fromResultSet(res));
-            }
 
-            return users;
-        }
-    }*//*
+          }
+       } return users;
+
+    }
 
 
     @Override
@@ -112,15 +114,16 @@ public class CustomerDao extends Dao<Customer> {
     }
 
    //Dont know if needed, just same deletemethod as in Employee
-    */
-/*public void delete (int id) throws SQLException {
+
+public void delete(int id) throws SQLException {
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(deleteQuery)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
-    }*//*
+    }
 
-}
+}}
+
 
 */

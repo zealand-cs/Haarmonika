@@ -201,5 +201,9 @@ direction LR
     User <|-- Customer
     User <|-- Employee
     DbRead *-- Pagination
+    Dao ..|> DbCreate
+    Dao ..|> DbDelete
+    Dao ..|> DbRead
+    Dao ..|> DbUpdate
     
 ```
