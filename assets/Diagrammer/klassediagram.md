@@ -1,20 +1,43 @@
 ```mermaid
 classDiagram
 direction LR
+    class User {
+        - Integer id
+        - String firstName
+        - String lastName
+        - String email
+        - String phone
+        - String password
+        - int roleId
 
+        + User(Integer id, String firstName, String lastName, String email, String phone, String password, int roleId)
+
+        + Integer getId()
+        + String getFirstName()
+        + String getLastName()
+        + String getEmail()
+        + String getPhone()
+        + String getPassword()
+        + int getRoleId()
+
+        + void setId(Integer id)
+        + void setFirstName(String firstName)
+        + void setLastName(String lastName)
+        + void setEmail(String email)
+        + void setPhone(String phone)
+        + void setPassword(String password)
+        + void setRoleId(int roleId)
+    }
     class Customer {
-        <<record>>
-        +int id
-        +String name
-        +String phoneNumber
-        +String email
+        +Customer(int id, String firstname, String lastName, String email, String phone, String password, int roleId)
+        +Customer(String firstname, String lastName, String email, String phone, String password, int roleId)
+        +Customer(String firstname, String lastName, String email, String phone, String password)
     }
 
     class Employee {
-        <<record>>
-        +int id
-        +String name
-        +String role
+        + Employee(int id, String firstName, String lastName, String email, String phone, String password, int roleId)
+        + Employee(String firstName, String lastName, String email, String phone, String password, int roleId)
+        + Employee(String firstName, String lastName, String email, String phone, String password)
     }
 
     class Booking {
@@ -27,10 +50,16 @@ direction LR
     }
 
     class Service {
-        +int id
-        +String name
-        +double price
-        +int durationMinutes
+        - Integer id
+        - String name
+        - int duration
+
+        + Service(Integer id, String name, int duration)
+        + Service(String name, int duration)
+
+        + Integer getId()
+        + String getName()
+        + int getDuration()
     }
 
     class IController {
@@ -129,7 +158,31 @@ direction LR
         +void update(Booking booking)
         +void delete(int id)
     }
+    
+    class DbCreate~T~ {
+        + void save(T entity) throws SQLException
+    }
 
+    class DbRead~T~ {
+        + Optional<T> get(int id) throws SQLException
+        + List<T> getAll(Pagination pagination) throws SQLException
+        + T fromResultSet(java.sql.ResultSet set) throws SQLException
+    }
+
+    class DbUpdate~T~ {
+        + void update(T entity) throws SQLException
+    }
+
+    class DbDelete~T~ {
+        + void delete(T entity) throws SQLException
+    }
+
+    class Pagination {
+        <<record>>
+        +int page
+        +int perPage
+        +Pagination(int page, int perPage)
+    }
     Customer "1" -- "1..n" Booking : Has
     Employee "1" -- "1..n" Booking : Creates
     Booking "1" -- "1..n" Service : Has
@@ -145,6 +198,8 @@ direction LR
     CustomerDao ..|> ICustomerDao
     Dao <|-- BookingDao
     BookingDao ..|>IBookingDao
+    User <|-- Customer
+    User <|-- Employee
+    DbRead *-- Pagination
     
-
 ```

@@ -127,6 +127,7 @@ public class EmployeeController extends BaseController implements ControllerInte
             showError("Failed to load edit window: " + e.getMessage());
         }
     }
+
     private void loadEmployees() {
         try {
             employees.setAll(employeeService.getAllEmployees());

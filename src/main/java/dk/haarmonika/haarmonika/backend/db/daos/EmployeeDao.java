@@ -67,8 +67,8 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
         String query = readQuery + " LIMIT ? OFFSET ?";
         try (Connection connection = getConnection();
             var stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, safePagination.perPage);
-            stmt.setInt(2, safePagination.perPage * safePagination.page);
+            stmt.setInt(1, safePagination.perPage());
+            stmt.setInt(2, safePagination.perPage() * safePagination.page());
 
             List<Employee> users = new ArrayList<>();
             try (var res = stmt.executeQuery()) {
