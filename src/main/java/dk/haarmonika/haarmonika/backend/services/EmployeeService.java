@@ -44,10 +44,10 @@ public class EmployeeService implements IEmployeeService {
         employeeValidator.validate(employee);
         employeeDao.update(employee);
     }
+
     @Override
     public void delete(int id) throws SQLException {
         employeeValidator.validateId(id);
         employeeDao.delete(id);
     }
-
 }

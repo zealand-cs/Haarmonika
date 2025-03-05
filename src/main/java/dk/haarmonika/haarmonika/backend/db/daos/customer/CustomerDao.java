@@ -82,9 +82,6 @@ public class CustomerDao extends Dao<Customer> implements ICustomerDao {
         return users;
     }
 
-
-
-
     @Override
     public Customer fromResultSet(ResultSet set) throws SQLException {
         return new Customer(
@@ -95,7 +92,6 @@ public class CustomerDao extends Dao<Customer> implements ICustomerDao {
                 set.getString("phone"),
                 set.getString("password"),
                 set.getInt("roleId")
-
         );
     }
 

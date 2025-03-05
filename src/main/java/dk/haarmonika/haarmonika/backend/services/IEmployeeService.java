@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.List;
 
 public interface IEmployeeService {
-
     List<Employee> getAllEmployees() throws SQLException;
     void createEmployee(Employee employee) throws SQLException;
     Optional<Employee> getEmployeeById(int id) throws SQLException;
