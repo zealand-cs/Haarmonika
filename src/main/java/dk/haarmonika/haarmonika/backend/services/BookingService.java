@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @Service
 public class BookingService implements IBookingService{
-
     private final IBookingDao bookingDao;
     private final BookingValidator bookingValidator;
 
