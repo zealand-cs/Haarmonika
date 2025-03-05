@@ -1,6 +1,7 @@
 
-package dk.haarmonika.haarmonika.backend.db.daos;
+package dk.haarmonika.haarmonika.backend.db.daos.customer;
 import dk.haarmonika.haarmonika.backend.db.Pagination;
+import dk.haarmonika.haarmonika.backend.db.daos.Dao;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
 import org.springframework.stereotype.Repository;
 import org.slf4j.Logger;

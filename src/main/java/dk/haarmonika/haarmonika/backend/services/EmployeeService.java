@@ -1,10 +1,8 @@
 package dk.haarmonika.haarmonika.backend.services;
 
-import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
-import dk.haarmonika.haarmonika.backend.db.daos.IEmployeeDao;
+import dk.haarmonika.haarmonika.backend.db.daos.employee.IEmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.db.validation.EmployeeValidator;
-import dk.haarmonika.haarmonika.backend.exceptions.EmployeeValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

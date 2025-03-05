@@ -1,7 +1,8 @@
 
-package dk.haarmonika.haarmonika.backend.db.daos;
+package dk.haarmonika.haarmonika.backend.db.daos.service;
 
 import dk.haarmonika.haarmonika.backend.db.Pagination;
+import dk.haarmonika.haarmonika.backend.db.daos.Dao;
 import dk.haarmonika.haarmonika.backend.db.entities.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package dk.haarmonika.haarmonika.backend.db.daos;
 
-import dk.haarmonika.haarmonika.backend.db.Database.DatabaseConnectionManager;
+import dk.haarmonika.haarmonika.backend.db.database.DatabaseConnectionManager;
 import dk.haarmonika.haarmonika.backend.db.interfaces.DbCreate;
 import dk.haarmonika.haarmonika.backend.db.interfaces.DbDelete;
 import dk.haarmonika.haarmonika.backend.db.interfaces.DbRead;
@@ -15,7 +15,6 @@ import java.sql.SQLException;
  * @param <T> the type to return from the DAO
  */
 public abstract class Dao<T> implements DbCreate<T>, DbRead<T>, DbUpdate<T>, DbDelete<T> {
-
     protected Connection getConnection() throws SQLException {
         return DatabaseConnectionManager.getConnection();
     }

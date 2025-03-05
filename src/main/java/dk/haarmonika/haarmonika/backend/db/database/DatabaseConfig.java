@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.backend.db.Database;
+package dk.haarmonika.haarmonika.backend.db.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import org.slf4j.Logger;

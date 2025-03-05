@@ -2,11 +2,8 @@ package dk.haarmonika.haarmonika.controllers;
 
 import dk.haarmonika.haarmonika.StartScene;
 import dk.haarmonika.haarmonika.backend.db.AppConfig;
-import dk.haarmonika.haarmonika.backend.db.daos.EmployeeDao;
-import dk.haarmonika.haarmonika.backend.services.EmployeeService;
 import dk.haarmonika.haarmonika.backend.services.ICustomerService;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
-import dk.haarmonika.haarmonika.backend.services.IServiceService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package dk.haarmonika.haarmonika.backend.db.Database;
+package dk.haarmonika.haarmonika.backend.db.database;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

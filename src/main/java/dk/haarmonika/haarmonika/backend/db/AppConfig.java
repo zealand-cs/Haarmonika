@@ -1,7 +1,10 @@
 package dk.haarmonika.haarmonika.backend.db;
 
 
-import dk.haarmonika.haarmonika.backend.db.daos.*;
+import dk.haarmonika.haarmonika.backend.db.daos.customer.CustomerDao;
+import dk.haarmonika.haarmonika.backend.db.daos.customer.ICustomerDao;
+import dk.haarmonika.haarmonika.backend.db.daos.employee.EmployeeDao;
+import dk.haarmonika.haarmonika.backend.db.daos.employee.IEmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.validation.CustomerValidator;
 import dk.haarmonika.haarmonika.backend.db.validation.EmployeeValidator;
 import dk.haarmonika.haarmonika.backend.services.*;

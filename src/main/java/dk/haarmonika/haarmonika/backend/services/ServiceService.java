@@ -2,8 +2,8 @@
 
 package dk.haarmonika.haarmonika.backend.services;
 
-import dk.haarmonika.haarmonika.backend.db.daos.IServiceDao;
-import dk.haarmonika.haarmonika.backend.db.daos.ServiceDao;
+import dk.haarmonika.haarmonika.backend.db.daos.service.IServiceDao;
+import dk.haarmonika.haarmonika.backend.db.daos.service.ServiceDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Service;
 import dk.haarmonika.haarmonika.backend.db.validation.ServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;

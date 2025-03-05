@@ -2,7 +2,7 @@
 
 package dk.haarmonika.haarmonika.backend.services;
 
-import dk.haarmonika.haarmonika.backend.db.daos.ICustomerDao;
+import dk.haarmonika.haarmonika.backend.db.daos.customer.ICustomerDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
 import dk.haarmonika.haarmonika.backend.db.validation.CustomerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
