@@ -40,6 +40,12 @@ public class SceneController {
                     ICustomerService customerService = context.getBean(ICustomerService.class);
                     loader.setControllerFactory(param -> new CustomerController(customerService));
                 }
+                if (fxmlFile.equals("login.fxml")) {
+
+                    IEmployeeService employeeService = context.getBean(IEmployeeService.class);
+                    loader.setControllerFactory(param -> new LoginController(employeeService));
+                }
+
                 /*if (fxmlFile.equals("ServicePage.fxml")) {
                     IServiceService serviceService = context.getBean(IServiceService.class);
                     loader.setControllerFactory(param -> new ServiceController(serviceService));
