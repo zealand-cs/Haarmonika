@@ -22,5 +22,4 @@ public class FormatUtility {
         column.setCellValueFactory(cellData -> new SimpleStringProperty(checkExists(valueExtractor.apply(cellData.getValue()))));
     }
 
-
 }

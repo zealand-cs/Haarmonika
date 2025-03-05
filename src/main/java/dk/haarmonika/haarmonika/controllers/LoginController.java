@@ -11,17 +11,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class LoginController implements ControllerInterface {
+public class LoginController{
     private static final Logger logger = LogManager.getLogger(LoginController.class);
     @FXML    private Button loginButton;
     @FXML    private TextField usernameField;
     @FXML    private PasswordField passwordField;
     @FXML    private Label errorLabel;
-
+    private SceneController sceneController;
     private final IEmployeeService employeeService;
 
-    public LoginController(IEmployeeService employeeService){
+    public LoginController(IEmployeeService employeeService, SceneController sceneController){
         this.employeeService = employeeService;
+        this.sceneController = sceneController;
         if (employeeService != null) {
             logger.info("EmployeeService injected successfully");
         } else {

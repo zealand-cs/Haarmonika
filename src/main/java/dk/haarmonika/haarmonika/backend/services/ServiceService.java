@@ -1,4 +1,4 @@
-/*
+
 
 package dk.haarmonika.haarmonika.backend.services;
 
@@ -54,4 +54,4 @@ public class ServiceService implements IServiceService {
 
 }
 
-*/
+

@@ -54,7 +54,6 @@
       <artifactId>spring-context</artifactId>
       <version>5.3.24</version> <!-- Use the latest version -->
     </dependency>
-
     <!-- JavaFX Dependencies -->
     <dependency>
       <groupId>org.openjfx</groupId>

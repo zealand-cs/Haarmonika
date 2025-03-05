@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" prefHeight="500" prefWidth="500"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="dk.haarmonika.haarmonika.controllers.forms.ServiceFormController">
+
+    <Label text="New Employee"/>
+
+
+    <TextField fx:id="nameField" promptText="Enter the Service Name" prefWidth="300"/>
+    <TextField fx:id="durationField" promptText="Enter the duration of the Service" prefWidth="300"/>
+
+
+    <Button fx:id="createButton" text="Create a new Service" onAction="#handleCreateButton" prefWidth="300"/>
+    <Button fx:id="saveButton" text="Save new information on Service" onAction="#handleSaveButton" />
+</VBox>

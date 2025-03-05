@@ -12,13 +12,12 @@ module dk.haarmonika.haarmonika {
     requires java.naming;
 
 
-    opens dk.haarmonika.haarmonika.backend.db to spring.core, spring.beans, spring.context;
+    opens dk.haarmonika.haarmonika.backend.db to spring.core;
+    opens dk.haarmonika.haarmonika.controllers to spring.core, javafx.fxml;
 
-
-    opens dk.haarmonika.haarmonika to javafx.fxml;
+    exports dk.haarmonika.haarmonika.backend.db;
     exports dk.haarmonika.haarmonika;
     exports dk.haarmonika.haarmonika.controllers;
-    opens dk.haarmonika.haarmonika.controllers to javafx.fxml;
     exports dk.haarmonika.haarmonika.controllers.forms;
     opens dk.haarmonika.haarmonika.controllers.forms to javafx.fxml;
 
