@@ -9,6 +9,7 @@ module dk.haarmonika.haarmonika {
     requires org.apache.logging.log4j;
     requires java.sql;
     requires org.apache.logging.log4j.core;
+    requires java.naming;
 
 
     opens dk.haarmonika.haarmonika.backend.db to spring.core, spring.beans, spring.context;
