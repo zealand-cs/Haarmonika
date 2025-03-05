@@ -31,18 +31,7 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
 
     @Override
     public void save(Booking booking) throws SQLException {
-        logger.info("Saving booking: {}", booking);
-        try (Connection connection = getConnection();
-             var stmt = connection.prepareStatement(insertBooking)) {
-            stmt.setString(1, user.getFirstName());
-            stmt.setString(2, user.getLastName());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPhone());
-            stmt.setString(5, user.getPassword());
-            stmt.setInt(6, roleId);
-            int rowsAffected = stmt.executeUpdate();
-            logger.info("Customer Creation Successful, rows affected: {}", rowsAffected);
-        }
+
     }
 
     @Override

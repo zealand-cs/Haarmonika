@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Booking implements IEntity {
     private Integer id;
-    private Employee employee;
-    private Customer customer;
+    private int employeeId;
+    private int customerId;
     private List<Service> services;
     private boolean cancelled;
 
