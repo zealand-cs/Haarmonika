@@ -1,11 +1,13 @@
 package dk.haarmonika.haarmonika.backend.db.interfaces;
 
+import dk.haarmonika.haarmonika.backend.db.entities.IEntity;
+
 import java.sql.SQLException;
 
-public interface DbCreate<T> {
+public interface DbCreate<T extends IEntity> {
     /**
-     * Insert a DAO in the database
-     * @return the id of the inserted row
+     * Saves an entity to a persistent storage
+     * @param entity the entity to store
      * @throws SQLException
      */
     void save(T entity) throws SQLException;

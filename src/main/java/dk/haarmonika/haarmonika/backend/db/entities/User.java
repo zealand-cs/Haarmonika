@@ -1,6 +1,6 @@
 package dk.haarmonika.haarmonika.backend.db.entities;
 
-public abstract class User {
+public abstract class User implements IEntity {
     private Integer id;
     private String firstName;
     private String lastName;

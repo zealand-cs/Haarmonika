@@ -17,6 +17,7 @@ import java.util.Optional;
 public class CustomerDao extends Dao<Customer> implements ICustomerDao {
     static final int roleId = 50; // TODO: id of customer role
     private static final Logger logger = LoggerFactory.getLogger(CustomerDao.class);
+
     static final String createQuery = "INSERT INTO user (firstName, lastName, email, phone, password, roleId) VALUES (?, ?, ?, ?, ?, ?)";
     static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
     static final String updateQuery = "UPDATE user SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
@@ -27,23 +28,24 @@ public class CustomerDao extends Dao<Customer> implements ICustomerDao {
         logger.info("Saving customer: {}", user);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(createQuery)) {
-            stmt.setString(1, user.getFirstName());
-            stmt.setString(2, user.getLastName());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPhone());
-            stmt.setString(5, user.getPassword());
-            stmt.setInt(6, roleId);
-            int rowsAffected = stmt.executeUpdate();
-            logger.info("Customer Creation Successful, rows affected: {}", rowsAffected);
+             stmt.setString(1, user.getFirstName());
+             stmt.setString(2, user.getLastName());
+             stmt.setString(3, user.getEmail());
+             stmt.setString(4, user.getPhone());
+             stmt.setString(5, user.getPassword());
+             stmt.setInt(6, roleId);
+             int rowsAffected = stmt.executeUpdate();
+             logger.info("Customer Creation Successful, rows affected: {}", rowsAffected);
         }
-
     }
 
     @Override
     public Optional<Customer> get(int id) throws SQLException {
         logger.info("Fetching customer with id: {}", id);
-        try (Connection connection = getConnection();
-             var stmt = connection.prepareStatement(readQuery + " WHERE id = ?")) {
+        try (
+            Connection connection = getConnection();
+            var stmt = connection.prepareStatement(readQuery + " WHERE id = ?")
+        ) {
             stmt.setInt(1, id);
             try (var res = stmt.executeQuery()) {
 
@@ -113,24 +115,13 @@ public class CustomerDao extends Dao<Customer> implements ICustomerDao {
     }
 
     @Override
-    public void delete(Customer user) throws SQLException {
-        try (Connection connection = getConnection();
-             var stmt = connection.prepareStatement(deleteQuery)) {
-            stmt.setInt(1, user.getId());
-            stmt.executeUpdate();
-        }
-    }
-
-
-
-public void delete(int id) throws SQLException {
+    public void delete(int id) throws SQLException {
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(deleteQuery)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
     }
-
 }
 
 

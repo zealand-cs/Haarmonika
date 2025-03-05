@@ -1,7 +1,8 @@
 package dk.haarmonika.haarmonika.backend.db.daos.booking;
 
-import dk.haarmonika.haarmonika.backend.db.daos.IBaseDao;
+import dk.haarmonika.haarmonika.backend.db.daos.IDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Booking;
+import org.springframework.stereotype.Repository;
 
-public interface IBookingDao extends IBaseDao<Booking> {
-}
+@Repository
+public interface IBookingDao extends IDao<Booking> { }

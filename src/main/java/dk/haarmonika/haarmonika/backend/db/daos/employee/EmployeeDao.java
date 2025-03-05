@@ -114,17 +114,6 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
     }
 
     @Override
-    public void delete(Employee user) throws SQLException {
-        logger.info("Deleting user: {}", user);
-        try (Connection connection = getConnection();
-             var stmt = connection.prepareStatement(deleteQuery)) {
-            stmt.setInt(1, user.getId());
-            int rowsAffected = stmt.executeUpdate();
-            logger.info("Delete Succesful", rowsAffected);
-        }
-    }
-    //Denne bliver brugt.
-    @Override
     public void delete(int id) throws SQLException {
         logger.info("Deleting employee with id: {}", id);
         try (Connection connection = getConnection();

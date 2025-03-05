@@ -1,6 +1,6 @@
 package dk.haarmonika.haarmonika.backend.db.entities;
 
-public class Service {
+public class Service implements IEntity {
     /**
      * Id of the service
      */

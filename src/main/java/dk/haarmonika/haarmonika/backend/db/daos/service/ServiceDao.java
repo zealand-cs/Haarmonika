@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ServiceDao extends Dao<Service> implements IServiceDao{
+public class ServiceDao extends Dao<Service> implements IServiceDao {
     private static final Logger logger = LoggerFactory.getLogger(ServiceDao.class);
 
     static final String createQuery = "INSERT INTO service (name, duration) VALUES (?, ?)";
@@ -92,24 +92,12 @@ public class ServiceDao extends Dao<Service> implements IServiceDao{
     }
 
     @Override
-    public void delete(Service entity) throws SQLException {
-        try (Connection connection = getConnection();
-             var stmt = connection.prepareStatement(deleteQuery)) {
-            stmt.setInt(1, entity.getId());
-            stmt.executeUpdate();
-        }
-    }
-
-    @Override
     public void delete(int id) throws SQLException {
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(deleteQuery)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
-
     }
-
-
 }
 
