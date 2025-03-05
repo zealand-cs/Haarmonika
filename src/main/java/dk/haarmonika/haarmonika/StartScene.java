@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import dk.haarmonika.haarmonika.backend.db.AppConfig;
-
 import java.io.IOException;
+
 
 public class StartScene extends Application {
     @Autowired

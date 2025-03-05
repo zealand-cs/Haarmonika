@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class LoginController implements ControllerInterface {
+public class LoginController{
     private static final Logger logger = LogManager.getLogger(LoginController.class);
     @FXML    private Button loginButton;
     @FXML    private TextField usernameField;

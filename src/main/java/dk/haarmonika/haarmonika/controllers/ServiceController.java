@@ -23,7 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ServiceController extends BaseController implements ControllerInterface {
+public class ServiceController extends BaseController{
     private static final Logger logger = LogManager.getLogger(ServiceController.class);
 
     private final IServiceService serviceService;
@@ -143,10 +143,6 @@ public class ServiceController extends BaseController implements ControllerInter
         }
     }
 
-    @Override
-    public void refresh() {
-        loadServices();
-    }
 
     @FXML
     public void handleComboBoxSelection(ActionEvent actionEvent) {

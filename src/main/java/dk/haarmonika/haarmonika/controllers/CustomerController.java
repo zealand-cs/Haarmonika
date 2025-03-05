@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-public class CustomerController extends BaseController implements ControllerInterface{
+public class CustomerController extends BaseController {
     private static final Logger logger = LogManager.getLogger(CustomerController.class);
 
 

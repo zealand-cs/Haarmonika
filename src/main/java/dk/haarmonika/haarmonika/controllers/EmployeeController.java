@@ -24,7 +24,7 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class EmployeeController extends BaseController implements ControllerInterface {
+public class EmployeeController extends BaseController {
     private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
     private SceneController sceneController;
@@ -169,10 +169,7 @@ public class EmployeeController extends BaseController implements ControllerInte
         }
     }
 
-    @Override
-    public void refresh() {
-        //TO DO
-    }
+
 
     @FXML
     public void handleComboBoxSelection(ActionEvent actionEvent) {

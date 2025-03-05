@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class BookingController extends BaseController implements ControllerInterface{
+public class BookingController extends BaseController{
     private static final Logger logger = LogManager.getLogger(BookingController.class);
     @FXML private ComboBox<String> bookingMonday1;
     @FXML private ComboBox<String> bookingMonday2;

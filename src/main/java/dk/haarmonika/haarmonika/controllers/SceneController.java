@@ -1,7 +1,6 @@
 package dk.haarmonika.haarmonika.controllers;
 
 import dk.haarmonika.haarmonika.StartScene;
-import dk.haarmonika.haarmonika.backend.db.AppConfig;
 import dk.haarmonika.haarmonika.backend.services.IBookingService;
 import dk.haarmonika.haarmonika.backend.services.ICustomerService;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
@@ -13,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -24,7 +22,7 @@ import java.util.Map;
 public class SceneController {
     private static final Logger logger = LogManager.getLogger(SceneController.class);
     private static final Map<String, Parent> sceneCache = new HashMap<>();
-    private static final Map<String, ControllerInterface> controllerCache = new HashMap<>();
+    private static final Map<String, Object> controllerCache = new HashMap<>();
 
 
     @Autowired
@@ -34,7 +32,7 @@ public class SceneController {
         try {
             logger.info("Switching to scene" + fxmlFile);
             Parent root;
-            ControllerInterface controller;
+            Object controller;
 
             if (context == null) {
                 logger.error("Application context is not initialized.");
