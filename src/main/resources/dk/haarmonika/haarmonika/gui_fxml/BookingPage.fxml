@@ -23,11 +23,11 @@
             </FXCollections>
         </items>
     </ComboBox>
-    <Button text="Previous Week" fx:id="btnPreviousWeek" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" />
+    <Button text="Previous Week" fx:id="btnPreviousWeek" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="300" />
     <Button text="Next Week" fx:id="btnNextWeek" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10" />
 
     <!-- Current Week Label -->
-    <Label fx:id="lblWeekRange" text="Week of: Monday, March 1 - Sunday, March 7" AnchorPane.topAnchor="10"/>
+    <Label fx:id="lblWeekRange" text="Week of: Monday, March 1 - Sunday, March 7" AnchorPane.topAnchor="40"/>
 
     <!-- GridPane for Calendar -->
     <GridPane hgap="10" vgap="10" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="50" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
@@ -37,8 +37,6 @@
         <Label text="Wednesday" GridPane.columnIndex="3" GridPane.rowIndex="0" />
         <Label text="Thursday" GridPane.columnIndex="4" GridPane.rowIndex="0" />
         <Label text="Friday" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-        <Label text="Saturday" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-        <Label text="Sunday" GridPane.columnIndex="7" GridPane.rowIndex="0" />
 
         <!-- Time slots (9 AM to 4 PM) -->
         <Label text="09:00" GridPane.columnIndex="0" GridPane.rowIndex="1" />

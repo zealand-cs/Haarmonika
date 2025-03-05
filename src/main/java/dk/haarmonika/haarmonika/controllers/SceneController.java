@@ -64,7 +64,7 @@ public class SceneController {
                         logger.info("Loading login page with LoginController.");
                         loader.setControllerFactory(param -> new LoginController(employeeService, this));
                     }
-                    case "ServicesPage.fxml" -> {
+                    case "ServicePage.fxml" -> {
                         IServiceService serviceService = context.getBean(IServiceService.class);
                         logger.info("Loading ServicesPage with ServiceController.");
                         loader.setControllerFactory(param -> new ServiceController(serviceService, this));
