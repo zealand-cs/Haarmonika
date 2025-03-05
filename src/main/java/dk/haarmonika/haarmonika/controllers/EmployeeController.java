@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -20,28 +21,38 @@ import java.io.IOException;
 import java.sql.SQLException;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
-
-public class EmployeeController extends BaseController implements ControllerInterface{
+public class EmployeeController extends BaseController implements ControllerInterface {
     private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
+    private SceneController sceneController;
     private final IEmployeeService employeeService;
 
-    @FXML private TableColumn<Employee, String> colHasEmail;
-    @FXML private TableColumn<Employee, String> colHasPhone;
-    @FXML private TableColumn<Employee, String> colHasPassword;
-    @FXML private TableColumn<Employee, String> colFirstName;
-    @FXML private TableColumn<Employee, String> colLastName;
-    @FXML private TableColumn<Employee, String> colRole;
-    @FXML private TableView<Employee> tableEmployees;
-
+    @FXML
+    private ComboBox<String> dropdownMenu;
+    @FXML
+    private TableColumn<Employee, String> colHasEmail;
+    @FXML
+    private TableColumn<Employee, String> colHasPhone;
+    @FXML
+    private TableColumn<Employee, String> colHasPassword;
+    @FXML
+    private TableColumn<Employee, String> colFirstName;
+    @FXML
+    private TableColumn<Employee, String> colLastName;
+    @FXML
+    private TableColumn<Employee, String> colRole;
+    @FXML
+    private TableView<Employee> tableEmployees;
 
 
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
 
-    public EmployeeController(IEmployeeService employeeService){
+    public EmployeeController(IEmployeeService employeeService, SceneController sceneController) {
         this.employeeService = employeeService;
+        this.sceneController = sceneController;
         if (employeeService != null) {
             logger.info("EmployeeService injected successfully");
         } else {
@@ -50,7 +61,7 @@ public class EmployeeController extends BaseController implements ControllerInte
     }
 
     /**
-     Calls methods for toString for the tableview, so it displays correct values
+     * Calls methods for toString for the tableview, so it displays correct values
      */
 
     public void initialize() {
@@ -161,6 +172,35 @@ public class EmployeeController extends BaseController implements ControllerInte
     @Override
     public void refresh() {
         //TO DO
+    }
+
+    @FXML
+    public void handleComboBoxSelection(ActionEvent actionEvent) {
+        try {
+            String selectedOption = dropdownMenu.getValue();
+            if (selectedOption != null) {
+                switch (selectedOption) {
+                    case "Booking Page":
+                        sceneController.switchScene("BookingPage.fxml");
+                        break;
+                    case "Customer Page":
+                        sceneController.switchScene("CustomerPage.fxml");
+                        break;
+                    case "Service Page":
+                        sceneController.switchScene("ServicePage.fxml");
+                        break;
+                    case "Employee Page":
+                        sceneController.switchScene("EmployeePage.fxml");
+                        break;
+                    default:
+                        logger.warn("Invalid selection: " + selectedOption);
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error in ComboBox selection handling: " + e.getMessage());
+            showError("Error in ComboBox selection");
+        }
     }
 
 }

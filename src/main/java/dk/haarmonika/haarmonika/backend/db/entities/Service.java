@@ -35,4 +35,11 @@ public class Service implements IEntity {
     public int getDuration() {
         return duration;
     }
+
+    public void setName(String name) {
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 }

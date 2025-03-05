@@ -14,24 +14,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
+import java.util.List;
 
 
 public class CustomerController extends BaseController implements ControllerInterface{
     private static final Logger logger = LogManager.getLogger(CustomerController.class);
 
+
     private final ICustomerService customerService;
 
 
+    private SceneController sceneController;
+
+    @FXML private ComboBox<String> dropdownMenu;
     @FXML private TableColumn<Customer, String> colHasEmail;
     @FXML private TableColumn<Customer, String> colHasPhone;
     @FXML private TableColumn<Customer, String> colHasPassword;
@@ -42,8 +48,9 @@ public class CustomerController extends BaseController implements ControllerInte
 
     private ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-    public CustomerController(ICustomerService customerService){
+    public CustomerController(ICustomerService customerService, SceneController sceneController){
         this.customerService = customerService;
+        this.sceneController = sceneController;
         if (customerService != null) {
             logger.info("customerService injected successfully");
         } else {
@@ -121,14 +128,42 @@ public class CustomerController extends BaseController implements ControllerInte
     }
 
     private void loadCustomers() {
-        logger.info("Loading Customers...");
+        logger.info("Loading customers...");
+
         try {
-            customers.setAll(customerService.getAllCustomers());
-            logger.info("Loaded Customeers: " + customers.size());
+            // Fetch all customers from the service
+            List<Customer> fetchedCustomers = customerService.getAllCustomers();
+
+            // Ensure 'customers' is initialized before modifying it
+            if (customers == null) {
+                customers = FXCollections.observableArrayList();
+            }
+
+            // Populate the TableView with new data
+            customers.setAll(fetchedCustomers);
+
+            // Log the number of customers loaded
+            logger.info("Loaded " + customers.size() + " customers.");
+
+            // Optional: Check if no customers were loaded
+            if (customers.isEmpty()) {
+                logger.warn("No customers were loaded.");
+            }
+
         } catch (CustomerValidationException e) {
-            showError(e.getMessage());
+            // Log validation error and show error message
+            logger.error("Customer validation error: " + e.getMessage(), e);
+            showError("Customer validation error: " + e.getMessage());
+
         } catch (SQLException e) {
+            // Log SQL error and print stack trace for debugging
+            logger.error("Database error while loading customers", e);
             e.printStackTrace();
+            showError("An error occurred while loading customer data. Please try again.");
+        } catch (Exception e) {
+            // Catch any unexpected exceptions and log them
+            logger.error("Unexpected error occurred while loading customers", e);
+            showError("An unexpected error occurred. Please try again.");
         }
     }
 
@@ -151,6 +186,29 @@ public class CustomerController extends BaseController implements ControllerInte
     }
 
 
+    public void handleComboBoxSelection(ActionEvent actionEvent) {
+        String selectedOption = dropdownMenu.getValue();
+
+        if (selectedOption != null) {
+            switch (selectedOption) {
+                case "Booking Page":
+                    sceneController.switchScene("BookingPage.fxml");
+                    break;
+                case "Customer Page":
+                    sceneController.switchScene("CustomerPage.fxml");
+                    break;
+                case "Service Page":
+                    sceneController.switchScene("ServicePage.fxml");
+                    break;
+                case "Employee Page":
+                    sceneController.switchScene("EmployeePage.fxml");
+                    break;
+                default:
+                    logger.warn("Ugyldig valg i dropdown: " + selectedOption);
+                    break;
+            }
+        }
+    }
 }
 
 

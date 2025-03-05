@@ -17,11 +17,12 @@ public class LoginController implements ControllerInterface {
     @FXML    private TextField usernameField;
     @FXML    private PasswordField passwordField;
     @FXML    private Label errorLabel;
-
+    private SceneController sceneController;
     private final IEmployeeService employeeService;
 
-    public LoginController(IEmployeeService employeeService){
+    public LoginController(IEmployeeService employeeService, SceneController sceneController){
         this.employeeService = employeeService;
+        this.sceneController = sceneController;
         if (employeeService != null) {
             logger.info("EmployeeService injected successfully");
         } else {

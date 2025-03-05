@@ -11,6 +11,10 @@ import dk.haarmonika.haarmonika.backend.services.*;
 import dk.haarmonika.haarmonika.controllers.SceneController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import dk.haarmonika.haarmonika.backend.db.daos.service.IServiceDao;
+import dk.haarmonika.haarmonika.backend.db.daos.service.ServiceDao;
+import dk.haarmonika.haarmonika.backend.db.validation.ServiceValidator;
+
 
 //Spring framework for IoC, Inversion of Control
 
@@ -49,14 +53,19 @@ public class AppConfig {
     public ICustomerDao customerDao() {
         return new CustomerDao();
     }
-    /*@Bean
-    public IServiceService serviceDao() {
+
+    @Bean
+    public IServiceDao serviceDao() {
         return new ServiceDao();
+    }
+    @Bean
+    public ServiceValidator serviceValidator() {
+        return new ServiceValidator();
     }
 
     @Bean
     public IServiceService serviceService(IServiceDao serviceDao, ServiceValidator serviceValidator) {
         return new ServiceService(serviceDao, serviceValidator);
-    }*/
+    }
 
 }

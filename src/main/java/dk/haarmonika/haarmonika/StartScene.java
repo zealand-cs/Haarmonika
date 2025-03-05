@@ -3,13 +3,15 @@ package dk.haarmonika.haarmonika;
 import dk.haarmonika.haarmonika.controllers.SceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import dk.haarmonika.haarmonika.backend.db.AppConfig;
 
 import java.io.IOException;
 
 public class StartScene extends Application {
-
+    @Autowired
+    private SceneController sceneController;
     private static Stage primaryStage;
     private static AnnotationConfigApplicationContext context;
 
@@ -21,7 +23,7 @@ public class StartScene extends Application {
 
 
         primaryStage = stage;
-        SceneController.switchScene("LandingPage.fxml");
+        sceneController.switchScene("EmployeePage.fxml");
         primaryStage.setTitle("Velkommen til Haarmonika's FrisørSalon");
         primaryStage.show();
     }
@@ -38,6 +40,7 @@ public class StartScene extends Application {
     }
 
     public static void main(String[] args) {
+        context = new AnnotationConfigApplicationContext(AppConfig.class);
         launch();
     }
 }
