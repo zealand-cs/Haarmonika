@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 
 public class ServiceFormController extends BaseController {
+
     @FXML private Button saveButton;
     @FXML private Button createButton;
 

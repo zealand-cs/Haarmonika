@@ -23,7 +23,7 @@ public class StartScene extends Application {
 
 
         primaryStage = stage;
-        sceneController.switchScene("EmployeePage.fxml");
+        sceneController.switchScene("BookingPage.fxml");
         primaryStage.setTitle("Velkommen til Haarmonika's FrisørSalon");
         primaryStage.show();
     }

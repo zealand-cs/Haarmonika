@@ -4,6 +4,7 @@ import dk.haarmonika.haarmonika.backend.db.entities.Service;
 import dk.haarmonika.haarmonika.backend.exceptions.ServiceValidationException;
 import dk.haarmonika.haarmonika.backend.services.IServiceService;
 import dk.haarmonika.haarmonika.controllers.forms.ServiceFormController;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,14 +27,15 @@ public class ServiceController extends BaseController implements ControllerInter
     private static final Logger logger = LogManager.getLogger(ServiceController.class);
 
     private final IServiceService serviceService;
-    private final SceneController sceneController;
+    private SceneController sceneController;
+
 
     @FXML
     private ComboBox<String> dropdownMenu;
     @FXML
-    private TableColumn<Service, String> colServiceName;
+    private TableColumn<Service, String> colName;
     @FXML
-    private TableColumn<Service, Double> colServicePrice;
+    private TableColumn<Service, Integer> colDuration;
     @FXML
     private TableView<Service> tableServices;
 
@@ -42,11 +44,21 @@ public class ServiceController extends BaseController implements ControllerInter
     public ServiceController(IServiceService serviceService, SceneController sceneController) {
         this.serviceService = serviceService;
         this.sceneController = sceneController;
+        if (serviceService != null) {
+            logger.info("serviceService injected successfully");
+        } else {
+            logger.error("Failed to inject ServiceService");
+        }
     }
 
     public void initialize() {
         loadServices();
-        FormatUtility.setTextCell(colServiceName, Service::getName);
+
+        // Set the cell factory for the duration column
+        FormatUtility.setTextCell(colName, Service::getName); // Name column setup
+        colDuration.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getDuration()).asObject()); // Duration column setup
+
         tableServices.setItems(services);
     }
 
@@ -79,6 +91,8 @@ public class ServiceController extends BaseController implements ControllerInter
             stage.showAndWait();
 
             loadServices();
+        } catch (ServiceValidationException e) {
+            showError(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

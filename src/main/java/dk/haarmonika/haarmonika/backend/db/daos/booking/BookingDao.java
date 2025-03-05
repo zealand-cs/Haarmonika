@@ -17,7 +17,7 @@ import java.util.Optional;
 @Repository
 public class
 BookingDao extends Dao<Booking> implements IBookingDao {
-    private static final Logger logger = LoggerFactory.getLogger(CustomerDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookingDao.class);
 
     static final String insertBooking = "INSERT INTO booking (employeeId, customerId, date, cancelled) VALUES (?, ?, ?, ?)";
     static final String insertBookingService = "INSERT INTO bookingService (bookingId, serviceId) VALUES (?, ?)";

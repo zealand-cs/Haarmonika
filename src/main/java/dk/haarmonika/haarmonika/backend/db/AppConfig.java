@@ -1,10 +1,13 @@
 package dk.haarmonika.haarmonika.backend.db;
 
 
+import dk.haarmonika.haarmonika.backend.db.daos.booking.BookingDao;
+import dk.haarmonika.haarmonika.backend.db.daos.booking.IBookingDao;
 import dk.haarmonika.haarmonika.backend.db.daos.customer.CustomerDao;
 import dk.haarmonika.haarmonika.backend.db.daos.customer.ICustomerDao;
 import dk.haarmonika.haarmonika.backend.db.daos.employee.EmployeeDao;
 import dk.haarmonika.haarmonika.backend.db.daos.employee.IEmployeeDao;
+import dk.haarmonika.haarmonika.backend.db.validation.BookingValidator;
 import dk.haarmonika.haarmonika.backend.db.validation.CustomerValidator;
 import dk.haarmonika.haarmonika.backend.db.validation.EmployeeValidator;
 import dk.haarmonika.haarmonika.backend.services.*;
@@ -66,6 +69,21 @@ public class AppConfig {
     @Bean
     public IServiceService serviceService(IServiceDao serviceDao, ServiceValidator serviceValidator) {
         return new ServiceService(serviceDao, serviceValidator);
+    }
+
+    @Bean
+    public BookingValidator bookingValidator() {
+        return new BookingValidator();
+    }
+
+    @Bean
+    public IBookingService bookingService(IBookingDao bookingDao, BookingValidator bookingValidator) {
+        return new BookingService(bookingDao, bookingValidator);
+    }
+
+    @Bean
+    public IBookingDao bookingDao(){
+        return new BookingDao();
     }
 
 }

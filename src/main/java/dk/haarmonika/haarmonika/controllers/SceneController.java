@@ -2,6 +2,7 @@ package dk.haarmonika.haarmonika.controllers;
 
 import dk.haarmonika.haarmonika.StartScene;
 import dk.haarmonika.haarmonika.backend.db.AppConfig;
+import dk.haarmonika.haarmonika.backend.services.IBookingService;
 import dk.haarmonika.haarmonika.backend.services.ICustomerService;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import dk.haarmonika.haarmonika.backend.services.IServiceService;
@@ -67,6 +68,11 @@ public class SceneController {
                         IServiceService serviceService = context.getBean(IServiceService.class);
                         logger.info("Loading ServicesPage with ServiceController.");
                         loader.setControllerFactory(param -> new ServiceController(serviceService, this));
+                    }
+                    case "BookingPage.fxml" -> {
+                        IBookingService bookingService = context.getBean(IBookingService.class);
+                        logger.info("Loading BookingPage with BookingController.");
+                        loader.setControllerFactory(param -> new BookingController(bookingService, this));
                     }
                     default -> {
                         logger.warn("Scene " + fxmlFile + " is not recognized, skipping scene loading.");

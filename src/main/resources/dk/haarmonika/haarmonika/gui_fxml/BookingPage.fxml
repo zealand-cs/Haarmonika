@@ -9,7 +9,7 @@
 <?import javafx.collections.FXCollections?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dk.haarmonika.haarmonika.controllers.BookingController">
+            fx:controller="dk.haarmonika.haarmonika.controllers.BookingController"
             prefHeight="400.0" prefWidth="600.0">
 
     <ComboBox fx:id="dropdownMenu" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"
@@ -23,4 +23,84 @@
             </FXCollections>
         </items>
     </ComboBox>
+    <Button text="Previous Week" fx:id="btnPreviousWeek" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" />
+    <Button text="Next Week" fx:id="btnNextWeek" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10" />
+
+    <!-- Current Week Label -->
+    <Label fx:id="lblWeekRange" text="Week of: Monday, March 1 - Sunday, March 7" AnchorPane.topAnchor="10"/>
+
+    <!-- GridPane for Calendar -->
+    <GridPane hgap="10" vgap="10" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="50" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+        <!-- Days of the Week -->
+        <Label text="Monday" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="Tuesday" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <Label text="Wednesday" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+        <Label text="Thursday" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+        <Label text="Friday" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+        <Label text="Saturday" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+        <Label text="Sunday" GridPane.columnIndex="7" GridPane.rowIndex="0" />
+
+        <!-- Time slots (9 AM to 4 PM) -->
+        <Label text="09:00" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label text="10:00" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="11:00" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label text="12:00" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label text="13:00" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label text="14:00" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label text="15:00" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <Label text="16:00" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+
+        <!-- Time slots for each day (Monday-Sunday) -->
+        <!-- Monday -->
+        <ComboBox fx:id="bookingMonday1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="bookingMonday2" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="bookingMonday3" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="bookingMonday4" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="bookingMonday5" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="bookingMonday6" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="bookingMonday7" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+        <ComboBox fx:id="bookingMonday8" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+        <!-- Tuesday -->
+        <ComboBox fx:id="bookingTuesday1" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="bookingTuesday2" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="bookingTuesday3" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="bookingTuesday4" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="bookingTuesday5" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="bookingTuesday6" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="bookingTuesday7" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+        <ComboBox fx:id="bookingTuesday8" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
+
+        <!-- Wednesday -->
+        <ComboBox fx:id="bookingWednesday1" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="bookingWednesday2" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="bookingWednesday3" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="bookingWednesday4" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="bookingWednesday5" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="bookingWednesday6" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="bookingWednesday7" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
+        <ComboBox fx:id="bookingWednesday8" GridPane.columnIndex="3" GridPane.rowIndex="8"/>
+
+        <!-- Thursday -->
+        <ComboBox fx:id="bookingThursday1" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="bookingThursday2" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="bookingThursday3" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="bookingThursday4" GridPane.columnIndex="4" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="bookingThursday5" GridPane.columnIndex="4" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="bookingThursday6" GridPane.columnIndex="4" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="bookingThursday7" GridPane.columnIndex="4" GridPane.rowIndex="7"/>
+        <ComboBox fx:id="bookingThursday8" GridPane.columnIndex="4" GridPane.rowIndex="8"/>
+
+        <!-- Friday -->
+        <ComboBox fx:id="bookingFriday1" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="bookingFriday2" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="bookingFriday3" GridPane.columnIndex="5" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="bookingFriday4" GridPane.columnIndex="5" GridPane.rowIndex="4"/>
+        <ComboBox fx:id="bookingFriday5" GridPane.columnIndex="5" GridPane.rowIndex="5"/>
+        <ComboBox fx:id="bookingFriday6" GridPane.columnIndex="5" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="bookingFriday7" GridPane.columnIndex="5" GridPane.rowIndex="7"/>
+        <ComboBox fx:id="bookingFriday8" GridPane.columnIndex="5" GridPane.rowIndex="8"/>
+
+
+    </GridPane>
 </AnchorPane>
