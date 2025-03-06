@@ -62,11 +62,11 @@ public class ServiceDao extends Dao<Service> implements IServiceDao {
             stmt.setInt(1, safePagination.perPage());
             stmt.setInt(2, safePagination.perPage() * safePagination.page());
 
-                try (var res = stmt.executeQuery()) {
-                    while (res.next()) {
-                        services.add(fromResultSet(res));
-                    }
+            try (var res = stmt.executeQuery()) {
+                while (res.next()) {
+                    services.add(fromResultSet(res));
                 }
+            }
         }
         return services;
     }

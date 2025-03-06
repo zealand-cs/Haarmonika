@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="dk.haarmonika.haarmonika.controllers.forms.BookingFormController"
+            prefWidth="300" prefHeight="250">
+
+    <children>
+        <VBox spacing="10" alignment="CENTER" layoutX="20" layoutY="20">
+            <Label text="Create Booking" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label fx:id="dateLabel" text="Date: " />
+            <Label fx:id="timeLabel" text="Time: " />
+
+            <ComboBox fx:id="customerComboBox" promptText="Choose customer"/>
+            <ComboBox fx:id="serviceComboBox" promptText="Choose service"/>
+            <ComboBox fx:id="employeeComboBox" promptText="Choose Employee"/>
+
+            <Button fx:id="confirmButton" text="Confirm Booking" onAction="#handleConfirm"/>
+        </VBox>
+    </children>
+</AnchorPane>

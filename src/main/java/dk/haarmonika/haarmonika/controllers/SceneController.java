@@ -69,8 +69,11 @@ public class SceneController {
                     }
                     case "BookingPage.fxml" -> {
                         IBookingService bookingService = context.getBean(IBookingService.class);
+                        ICustomerService customerService = context.getBean(ICustomerService.class);
+                        IEmployeeService employeeService = context.getBean(IEmployeeService.class);
+                        IServiceService serviceService = context.getBean(IServiceService.class);
                         logger.info("Loading BookingPage with BookingController.");
-                        loader.setControllerFactory(param -> new BookingController(bookingService, this));
+                        loader.setControllerFactory(param -> new BookingController(bookingService, customerService, employeeService, serviceService, this));
                     }
                     default -> {
                         logger.warn("Scene " + fxmlFile + " is not recognized, skipping scene loading.");
