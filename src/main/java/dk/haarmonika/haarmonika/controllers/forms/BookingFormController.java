@@ -1,14 +1,13 @@
 package dk.haarmonika.haarmonika.controllers.forms;
 
-import dk.haarmonika.haarmonika.backend.db.Pagination;
-import dk.haarmonika.haarmonika.backend.db.daos.booking.BookingDao;
-import dk.haarmonika.haarmonika.backend.db.daos.customer.CustomerDao;
-import dk.haarmonika.haarmonika.backend.db.daos.employee.EmployeeDao;
-import dk.haarmonika.haarmonika.backend.db.daos.service.ServiceDao;
 import dk.haarmonika.haarmonika.backend.db.entities.Booking;
 import dk.haarmonika.haarmonika.backend.db.entities.Customer;
 import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.db.entities.Service;
+import dk.haarmonika.haarmonika.backend.services.IBookingService;
+import dk.haarmonika.haarmonika.backend.services.ICustomerService;
+import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
+import dk.haarmonika.haarmonika.backend.services.IServiceService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,40 +16,50 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+@Controller
 public class BookingFormController {
     private static final Logger logger = LoggerFactory.getLogger(BookingFormController.class);
 
     @FXML private Label dateLabel;
     @FXML private Label timeLabel;
+
+    public Label getDateLabel() {
+        return dateLabel;
+    }
+
+    public Label getTimeLabel() {
+        return timeLabel;
+    }
+
     @FXML private ComboBox<Customer> customerComboBox;
     @FXML private ComboBox<Employee> employeeComboBox;
     @FXML private ComboBox<Service> serviceComboBox;
     @FXML private Button confirmButton;
 
-    private final CustomerDao customerDao;
-    private final EmployeeDao employeeDao;
-    private final ServiceDao serviceDao;
-    private final BookingDao bookingDao;
-    private static final Pagination DEFAULT_PAGINATION = new Pagination(0, 50);
+    @Autowired
+    private IBookingService bookingService;
+    @Autowired
+    private ICustomerService customerService;
+    @Autowired
+    private IEmployeeService employeeService;
+    @Autowired
+    private IServiceService serviceService;
     private LocalDate bookingDate;
     private LocalTime bookingTime;
 
-    public BookingFormController(CustomerDao customerDao, EmployeeDao employeeDao, ServiceDao serviceDao, BookingDao bookingDao) {
-        this.customerDao = customerDao;
-        this.employeeDao = employeeDao;
-        this.serviceDao = serviceDao;
-        this.bookingDao = bookingDao;
-    }
+    public BookingFormController(){}
 
     @FXML
     public void initialize() {
+        logger.info("BookingFormController initialized");
         try {
             loadCustomers();
             loadEmployees();
@@ -61,25 +70,25 @@ public class BookingFormController {
     }
 
     private void loadCustomers() throws SQLException {
-        List<Customer> customers = customerDao.getAll(DEFAULT_PAGINATION);
+        List<Customer> customers = customerService.getAllCustomers();
         customerComboBox.setItems(FXCollections.observableArrayList(customers));
     }
 
     private void loadEmployees() throws SQLException {
-        List<Employee> employees = employeeDao.getAll(DEFAULT_PAGINATION);
+        List<Employee> employees = employeeService.getAllEmployees();
         employeeComboBox.setItems(FXCollections.observableArrayList(employees));
     }
 
     private void loadServices() throws SQLException {
-        List<Service> services = serviceDao.getAll(DEFAULT_PAGINATION);
+        List<Service> services = serviceService.getAllServices();
         serviceComboBox.setItems(FXCollections.observableArrayList(services));
     }
 
     public void initData(LocalDate date, LocalTime time) {
         this.bookingDate = date;
         this.bookingTime = time;
-        dateLabel.setText("Dato: " + date.toString());
-        timeLabel.setText("Tidspunkt: " + time.toString());
+        dateLabel.setText("Date: " + date.toString());
+        timeLabel.setText("Time: " + time.toString());
     }
 
     @FXML
@@ -95,15 +104,20 @@ public class BookingFormController {
             }
 
             Booking newBooking = new Booking(
-                    0, // ID (auto-generated)
+                    0,
                     selectedEmployee.getId(),
                     selectedCustomer.getId(),
-                    (int) bookingDate.toEpochDay(), // Assuming the DB stores date as an integer
+                    (int) bookingDate.toEpochDay(),
                     false
             );
             newBooking.addService(selectedService);
 
-            bookingDao.save(newBooking);
+            if (bookingService == null) {
+                logger.error("BookingService is null!");
+                return;
+            }
+
+            bookingService.createBooking(newBooking);
             logger.info("Booking successfully saved: {}", newBooking);
 
             Stage stage = (Stage) confirmButton.getScene().getWindow();

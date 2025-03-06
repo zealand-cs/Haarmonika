@@ -88,6 +88,7 @@ public class ServiceController extends BaseController{
             stage.setTitle("Add new Service");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnShown(event -> root.requestFocus());
             stage.showAndWait();
 
             loadServices();

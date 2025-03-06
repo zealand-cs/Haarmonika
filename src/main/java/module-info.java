@@ -14,12 +14,11 @@ module dk.haarmonika.haarmonika {
 
     opens dk.haarmonika.haarmonika.backend.db to spring.core;
     opens dk.haarmonika.haarmonika.controllers to spring.core, javafx.fxml;
-
+    opens dk.haarmonika.haarmonika.controllers.forms to spring.core, javafx.fxml;
     exports dk.haarmonika.haarmonika.backend.db;
     exports dk.haarmonika.haarmonika;
     exports dk.haarmonika.haarmonika.controllers;
     exports dk.haarmonika.haarmonika.controllers.forms;
-    opens dk.haarmonika.haarmonika.controllers.forms to javafx.fxml;
 
 
 
