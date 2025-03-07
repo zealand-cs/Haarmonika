@@ -286,3 +286,29 @@ sequenceDiagram
 
     EFC ->> User: Show success/failure message
 ```
+
+```mermaid
+sequenceDiagram
+    participant Bruger
+    participant BookingController
+    participant BookingFormController
+    participant BookingService
+    participant BookingDao
+    participant Database
+
+    Bruger->>BookingController: Vælger dato og tidsslot
+    BookingController->>BookingFormController: Initialiserer BookingForm med dato og tid
+    BookingFormController-->>Bruger: Viser bookingformular
+    Bruger->>BookingFormController: Udfylder bookingformular
+    Bruger->>BookingFormController: Klikker "Bekræft booking"
+    BookingFormController->>Booking: Opretter bookingobjekt
+    BookingFormController->>BookingService: createBooking(booking)
+    BookingService->>BookingDao: save(booking)
+    BookingDao->>Database: Gemmer booking
+    Database-->>BookingDao: Bekræfter gemning
+    BookingDao-->>BookingService: Bekræfter gemning
+    BookingService-->>BookingFormController: Bekræfter oprettelse af booking
+    BookingFormController-->>Bruger: Viser bekræftelse og lukker formular
+    BookingController->>BookingController: Opdaterer kalendervisning
+    BookingController-->>Bruger: Viser opdateret kalender
+```
