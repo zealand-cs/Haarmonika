@@ -1,14 +1,19 @@
 package dk.haarmonika.haarmonika.controllers;
 
+import dk.haarmonika.haarmonika.backend.db.entities.Employee;
 import dk.haarmonika.haarmonika.backend.services.IEmployeeService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.sql.SQLException;
+import java.util.Optional;
 
 
 public class LoginController{
@@ -38,17 +43,23 @@ public class LoginController{
 
     @FXML
     private void handleLogin() {
-        /*String username = usernameField.getText();
+        String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (authenticate(username, password)) {
-            errorLabel.setText("Login successful!");
-            errorLabel.setStyle("-fx-text-fill: green;");
-            // TODO: Navigate to the main application window
-        } else {
-            errorLabel.setText("Invalid username or password");
+        try {
+            if (employeeService.validateEmployee(username, password)) {
+                errorLabel.setText("Login successful!");
+                errorLabel.setStyle("-fx-text-fill: green;");
+                sceneController.switchScene("BookingPage.fxml");
+            } else {
+                errorLabel.setText("Invalid username or password");
+                errorLabel.setStyle("-fx-text-fill: red;");
+            }
+        } catch (SQLException e) {
+            logger.error("Error during login: {}", e.getMessage());
+            errorLabel.setText("An error occurred during login.");
             errorLabel.setStyle("-fx-text-fill: red;");
-        }*/
+        }
     }
 
     private boolean authenticate(String username, String password) {

@@ -50,4 +50,10 @@ public class EmployeeService implements IEmployeeService {
         employeeValidator.validateId(id);
         employeeDao.delete(id);
     }
+
+
+    @Override
+    public boolean validateEmployee(String email, String password) throws SQLException {
+        return employeeDao.validateEmployee(email,password);
+    }
 }

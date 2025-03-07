@@ -12,4 +12,5 @@ public interface IEmployeeService {
     Optional<Employee> getEmployeeById(int id) throws SQLException;
     void updateEmployee(Employee employee) throws SQLException;
     void delete(int id) throws SQLException;
+    boolean validateEmployee(String email, String password) throws SQLException;
 }

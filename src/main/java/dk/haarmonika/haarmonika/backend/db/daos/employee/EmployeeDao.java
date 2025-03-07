@@ -29,14 +29,14 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
         logger.info("Saving employee: {}", user);
         try (Connection connection = getConnection();
              var stmt = connection.prepareStatement(createQuery)) {
-        stmt.setString(1, user.getFirstName());
-        stmt.setString(2, user.getLastName());
-        stmt.setString(3, user.getEmail());
-        stmt.setString(4, user.getPhone());
-        stmt.setString(5, user.getPassword());
-        stmt.setInt(6, roleId);
-        int rowsAffected = stmt.executeUpdate();
-        logger.info("Save successful, rows affected: {}", rowsAffected);
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getLastName());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getPhone());
+            stmt.setString(5, user.getPassword());
+            stmt.setInt(6, roleId);
+            int rowsAffected = stmt.executeUpdate();
+            logger.info("Save successful, rows affected: {}", rowsAffected);
 
         }
     }
@@ -59,8 +59,6 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
     }
 
 
-
-
     @Override
     public List<Employee> getAll(Pagination pagination) throws SQLException {
         Pagination safePagination = (pagination != null) ? pagination : new Pagination(0, 10);
@@ -68,7 +66,7 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
         List<Employee> users = new ArrayList<>();
         String query = readQuery + " LIMIT ? OFFSET ?";
         try (Connection connection = getConnection();
-            var stmt = connection.prepareStatement(query)) {
+             var stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, safePagination.perPage());
             stmt.setInt(2, safePagination.perPage() * safePagination.page());
 
@@ -124,6 +122,19 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
                 logger.info("Delete successful, rows affected: {}", rowsAffected);
             } else {
                 logger.warn("No employee found to delete with id: {}", id);
+            }
+        }
+    }
+
+    public boolean validateEmployee(String email, String password) throws SQLException {
+        logger.info("Validating employee with email: {}", email);
+        String query = readQuery + " AND email = ? AND password = ?"; // Combine conditions
+        try (Connection connection = getConnection();
+             var stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            try (var res = stmt.executeQuery()) {
+                return res.next();
             }
         }
     }
