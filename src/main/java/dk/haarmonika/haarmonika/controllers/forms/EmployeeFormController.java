@@ -116,7 +116,7 @@ public class EmployeeFormController extends BaseController {
         employeeService.updateEmployee(selectedEmployee);
         showSuccess("Employee updated successfully!");
     }
-
+    
     private void clearFields() {
         firstNameField.clear();
         lastNameField.clear();

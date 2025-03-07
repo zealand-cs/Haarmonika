@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Data Access Object (DAO) for håndtering af Booking entiteter i databasen.
+ * Denne klasse indeholder metoder til at oprette, hente, opdatere og slette bookings.
+ */
 @Repository
 public class BookingDao extends Dao<Booking> implements IBookingDao {
     private static final Logger logger = LoggerFactory.getLogger(BookingDao.class);
@@ -32,6 +37,12 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
 
     static final String deleteBooking = "UPDATE booking SET cancelled = true WHERE id = ?";
 
+    /**
+     * Gemmer en ny booking i databasen.
+     *
+     * @param booking Booking objektet, der skal gemmes.
+     * @throws SQLException Hvis der opstår en SQL-fejl under gemning.
+     */
     @Override
     public void save(Booking booking) throws SQLException {
         logger.info("Saving booking: {}", booking);
@@ -59,6 +70,13 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
         }
     }
 
+    /**
+     * Henter en booking fra databasen baseret på dens ID.
+     *
+     * @param id ID'et på den booking, der skal hentes.
+     * @return Et Optional objekt, der indeholder bookingen, hvis den findes, ellers et tomt Optional objekt.
+     * @throws SQLException Hvis der opstår en SQL-fejl under hentning.
+     */
     @Override
     public Optional<Booking> get(int id) throws SQLException {
         logger.info("Fetching booking with id: {}", id);
@@ -89,6 +107,13 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
         }
     }
 
+    /**
+     * Henter alle bookings fra databasen med paginering.
+     *
+     * @param pagination Objekt, der indeholder pagineringsinformation.
+     * @return En liste af Booking objekter.
+     * @throws SQLException Hvis der opstår en SQL-fejl under hentning.
+     */
     @Override
     public List<Booking> getAll(Pagination pagination) throws SQLException {
         Pagination safePagination = (pagination != null) ? pagination : new Pagination(0, 10);
@@ -125,7 +150,13 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
             return bookings;
         }
     }
-
+    /**
+     * Konverterer et ResultSet objekt til et Booking objekt.
+     *
+     * @param set ResultSet objektet, der indeholder bookingdata.
+     * @return Et Booking objekt.
+     * @throws SQLException Hvis der opstår en SQL-fejl under konvertering.
+     */
     @Override
     public Booking fromResultSet(ResultSet set) throws SQLException {
         return new Booking(
@@ -136,7 +167,12 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
                 set.getBoolean("cancelled")
         );
     }
-
+    /**
+     * Opdaterer en eksisterende booking i databasen.
+     *
+     * @param booking Booking objektet, der skal opdateres.
+     * @throws SQLException Hvis der opstår en SQL-fejl under opdatering.
+     */
     @Override
     public void update(Booking booking) throws SQLException {
         try (Connection connection = getConnection();
@@ -157,7 +193,12 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
             connection.setAutoCommit(true);
         }
     }
-
+    /**
+     * Sletter en booking fra databasen baseret på dens ID.
+     *
+     * @param id ID'et på den booking, der skal slettes.
+     * @throws SQLException Hvis der opstår en SQL-fejl under sletning.
+     */
     @Override
     public void delete(int id) throws SQLException {
         try (Connection connection = getConnection();
@@ -166,7 +207,13 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
             stmt.executeUpdate();
         }
     }
-
+    /**
+    * Henter bookings inden for et givent datointerval.
+    *
+    *@param startDate Startdatoen for intervallet.
+    * @param endDate   Slutdatoen for intervallet.
+    * @return En liste af Booking objekter inden for det givne interval.
+    */
     public List<Booking> getBookingsBetween(LocalDate startDate, LocalDate endDate) throws SQLException {
         String query = "SELECT * FROM booking b JOIN bookingservice bs ON b.id = bs.bookingId JOIN service s ON bs.serviceId = s.id WHERE b.date BETWEEN ? AND ?";
         List<Booking> bookings = new ArrayList<>();

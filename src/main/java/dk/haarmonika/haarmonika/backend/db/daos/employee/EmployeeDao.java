@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Data Access Object (DAO) for håndtering af Employee entiteter i databasen.
+ * Denne klasse indeholder metoder til at oprette, hente, opdatere og slette medarbejdere.
+ */
 @Repository
 public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeDao.class);
@@ -23,7 +27,12 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
     static final String readQuery = "SELECT id, firstName, lastName, email, phone, password, roleId FROM user WHERE roleId = " + roleId;
     static final String updateQuery = "UPDATE user SET firstName = ?, lastName = ?, email = ?, phone = ?, password = ?, roleId = ? WHERE id = ?";
     static final String deleteQuery = "DELETE FROM user WHERE id = ?";
-
+    /**
+     * Gemmer en ny medarbejder i databasen.
+     *
+     //* @param employee Employee objektet, der skal gemmes.
+     * @throws SQLException Hvis der opstår en SQL-fejl under gemning.
+     */
     @Override
     public void save(Employee user) throws SQLException {
         logger.info("Saving employee: {}", user);
@@ -40,7 +49,13 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
 
         }
     }
-
+    /**
+     * Henter en medarbejder fra databasen baseret på deres ID.
+     *
+     * @param id ID'et på den medarbejder, der skal hentes.
+     * @return Et Optional objekt, der indeholder medarbejderen, hvis den findes, ellers et tomt Optional objekt.
+     * @throws SQLException Hvis der opstår en SQL-fejl under hentning.
+     */
     @Override
     public Optional<Employee> get(int id) throws SQLException {
         logger.info("Fetching employee with id: {}", id);
@@ -58,7 +73,13 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
         }
     }
 
-
+    /**
+     * Henter alle medarbejdere fra databasen med paginering.
+     *
+     * @param pagination Objekt, der indeholder pagineringsinformation.
+     * @return En liste af Employee objekter.
+     * @throws SQLException Hvis der opstår en SQL-fejl under hentning.
+     */
     @Override
     public List<Employee> getAll(Pagination pagination) throws SQLException {
         Pagination safePagination = (pagination != null) ? pagination : new Pagination(0, 10);
@@ -79,7 +100,13 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
             return users;
         }
     }
-
+    /**
+     * Konverterer et ResultSet objekt til et Employee objekt.
+     *
+     * @param set ResultSet objektet, der indeholder medarbejderdata.
+     * @return Et Employee objekt.
+     * @throws SQLException Hvis der opstår en SQL-fejl under konvertering.
+     */
     @Override
     public Employee fromResultSet(ResultSet set) throws SQLException {
         return new Employee(
@@ -93,7 +120,12 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
 
         );
     }
-
+    /**
+     * Opdaterer en eksisterende medarbejder i databasen.
+     *
+      //* @param employee Employee objektet, der skal opdateres.
+     * @throws SQLException Hvis der opstår en SQL-fejl under opdatering.
+     */
     @Override
     public void update(Employee user) throws SQLException {
         logger.info("Updating employee: {}", user);
@@ -110,7 +142,12 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
             logger.info("Update successful, rows affected: {}", rowsAffected);
         }
     }
-
+    /**
+     * Sletter en medarbejder fra databasen baseret på deres ID.
+     *
+     * @param id ID'et på den medarbejder, der skal slettes.
+     * @throws SQLException Hvis der opstår en SQL-fejl under sletning.
+     */
     @Override
     public void delete(int id) throws SQLException {
         logger.info("Deleting employee with id: {}", id);
@@ -125,7 +162,14 @@ public class EmployeeDao extends Dao<Employee> implements IEmployeeDao {
             }
         }
     }
-
+    /**
+     * Validerer en medarbejder baseret på deres email og password.
+     *
+     * @param email    Medarbejderens emailadresse.
+     * @param password Medarbejderens password.
+     * @return True hvis medarbejderen er gyldig, ellers false.
+     * @throws SQLException Hvis der opstår en SQL-fejl under validering.
+     */
     public boolean validateEmployee(String email, String password) throws SQLException {
         logger.info("Validating employee with email: {}", email);
         String query = readQuery + " AND email = ? AND password = ?"; // Combine conditions
