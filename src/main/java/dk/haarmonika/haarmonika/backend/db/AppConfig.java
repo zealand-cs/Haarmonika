@@ -15,6 +15,7 @@ import dk.haarmonika.haarmonika.controllers.BookingController;
 import dk.haarmonika.haarmonika.controllers.SceneController;
 import dk.haarmonika.haarmonika.controllers.forms.BookingFormController;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import dk.haarmonika.haarmonika.backend.db.daos.service.IServiceDao;
 import dk.haarmonika.haarmonika.backend.db.daos.service.ServiceDao;
@@ -24,7 +25,12 @@ import dk.haarmonika.haarmonika.backend.db.validation.ServiceValidator;
 //Spring framework for IoC, Inversion of Control
 
 @Configuration
+@ComponentScan("dk.haarmonika.haarmonika")
 public class AppConfig {
+
+    public AppConfig() {
+        System.out.println("AppConfig loaded");
+    }
 
     // DAOs
     @Bean
@@ -96,8 +102,11 @@ public class AppConfig {
     }
 
     @Bean
-    public BookingFormController bookingFormController() {
-        return new BookingFormController();
+    public BookingFormController bookingFormController(ICustomerService customerService,
+                                                       IServiceService serviceService,
+                                                       IEmployeeService employeeService,
+                                                       IBookingService bookingService) {
+        return new BookingFormController(customerService, serviceService, employeeService, bookingService);
     }
 
     @Bean
@@ -108,4 +117,6 @@ public class AppConfig {
                                                SceneController sceneController) {
         return new BookingController(bookingService, customerService, employeeService, serviceService, sceneController);
     }
+
+
 }

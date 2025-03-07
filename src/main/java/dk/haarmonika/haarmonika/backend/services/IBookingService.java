@@ -4,6 +4,7 @@ import dk.haarmonika.haarmonika.backend.db.entities.Booking;
 
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +16,5 @@ public interface IBookingService {
     Optional<Booking> getBookingById(int id) throws SQLException;
     void updateBooking(Booking booking) throws SQLException;
     void delete(int id) throws SQLException;
+    List<Booking> getBookingsBetween(LocalDate startDate, LocalDate endDate) throws SQLException;
 }

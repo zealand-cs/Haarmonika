@@ -1,5 +1,6 @@
 package dk.haarmonika.haarmonika.backend.db.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +71,9 @@ public class Booking implements IEntity {
 
     public void setDate(int date) {
         this.date = date;
+    }
+
+    public LocalDate getBookingDate() {
+        return LocalDate.ofEpochDay(date);
     }
 }

@@ -17,7 +17,7 @@
 
             <Label text="Employees" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
-        <ComboBox fx:id="dropdownMenu" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"
+        <ComboBox fx:id="dropdownMenu" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" promptText="Choose Page"
                   onAction="#handleComboBoxSelection">
             <items>
                 <FXCollections fx:factory="observableArrayList">

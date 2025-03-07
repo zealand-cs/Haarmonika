@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -163,5 +165,26 @@ public class BookingDao extends Dao<Booking> implements IBookingDao {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
+    }
+
+    public List<Booking> getBookingsBetween(LocalDate startDate, LocalDate endDate) throws SQLException {
+        String query = "SELECT * FROM booking b JOIN bookingservice bs ON b.id = bs.bookingId JOIN service s ON bs.serviceId = s.id WHERE b.date BETWEEN ? AND ?";
+        List<Booking> bookings = new ArrayList<>();
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement stmt = connection.prepareStatement(query);
+        ) {
+            stmt.setDate(1, java.sql.Date.valueOf(startDate));
+            stmt.setDate(2, java.sql.Date.valueOf(endDate));
+
+            try (ResultSet res = stmt.executeQuery()) {
+                while (res.next()) {
+                    bookings.add(fromResultSet(res));
+                }
+            }
+        }
+
+        return bookings;
     }
 }

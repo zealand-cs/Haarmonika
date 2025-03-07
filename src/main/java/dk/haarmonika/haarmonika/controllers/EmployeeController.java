@@ -23,7 +23,9 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+/**
+ * Controller for managing employee data and interactions in the application.
+ */
 public class EmployeeController extends BaseController {
     private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
@@ -47,9 +49,13 @@ public class EmployeeController extends BaseController {
     @FXML
     private TableView<Employee> tableEmployees;
 
-
+    //binding
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
-
+    /**
+     * Constructor for the EmployeeController.
+     * * @param employeeService The service for managing employee data.
+     * @param sceneController The controller for managing scene transitions.
+     */
     public EmployeeController(IEmployeeService employeeService, SceneController sceneController) {
         this.employeeService = employeeService;
         this.sceneController = sceneController;
@@ -79,7 +85,11 @@ public class EmployeeController extends BaseController {
         tableEmployees.setItems(employees);
     }
 
-
+    /**
+     * Handles the "Add Employee" button action.
+     * Opens a new window to add a new employee.
+     * * @param actionEvent The action event triggered by the button.
+     */
     @FXML
     private void addEmployeeButton(ActionEvent actionEvent) {
         try {
@@ -105,7 +115,11 @@ public class EmployeeController extends BaseController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Handles the "Update Employee" button action.
+     * Opens a new window to edit the selected employee.
+     * * @param actionEvent The action event triggered by the button.
+     */
     @FXML
     private void updateEmployeeButton(ActionEvent actionEvent) {
         Employee selectedEmployee = tableEmployees.getSelectionModel().getSelectedItem();
@@ -138,7 +152,9 @@ public class EmployeeController extends BaseController {
             showError("Failed to load edit window: " + e.getMessage());
         }
     }
-
+    /**
+     * Loads employee data from the service and updates the table view.
+     */
     private void loadEmployees() {
         logger.info("Loading Employees...");
         try {
@@ -150,7 +166,10 @@ public class EmployeeController extends BaseController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Handles the "Delete Employee" button action.
+     * Deletes the selected employee from the database and updates the table view.
+     */
     @FXML
     private void deleteEmployeeButton() {
         Employee selectedEmployee = tableEmployees.getSelectionModel().getSelectedItem();
@@ -170,7 +189,11 @@ public class EmployeeController extends BaseController {
     }
 
 
-
+    /**
+     * Handles the dropdown menu selection.
+     * Switches to the selected scene.
+     * * @param actionEvent The action event triggered by the dropdown menu.
+     */
     @FXML
     public void handleComboBoxSelection(ActionEvent actionEvent) {
         try {

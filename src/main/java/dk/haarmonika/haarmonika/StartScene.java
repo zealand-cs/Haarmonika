@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 public class StartScene extends Application {
-    @Autowired
+
     private SceneController sceneController;
     private static Stage primaryStage;
     private static AnnotationConfigApplicationContext context;
@@ -18,8 +18,8 @@ public class StartScene extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        context = new AnnotationConfigApplicationContext(AppConfig.class);
-        SceneController sceneController = context.getBean(SceneController.class);
+        sceneController = context.getBean(SceneController.class); // Initialiser her
+
 
 
         primaryStage = stage;

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +49,10 @@ public class BookingService implements IBookingService{
     public void delete(int id) throws SQLException {
         bookingValidator.validateId(id);
         bookingDao.delete(id);
+    }
+
+    @Override
+    public List<Booking> getBookingsBetween(LocalDate startDate, LocalDate endDate) throws SQLException {
+        return bookingDao.getBookingsBetween(startDate, endDate);
     }
 }

@@ -259,3 +259,30 @@ sequenceDiagram
         System ->> System: No action taken
     end
 ```
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant EmployeeFormController as EFC
+    participant EmployeeService as ES
+    participant EmployeeValidator as EV
+    participant EmployeeDao as ED
+    participant Database as DB
+
+    User ->> EFC: addEmployee(name, email, phone)
+    EFC ->> ES: addEmployee(name, email, phone)
+    ES ->> EV: validateEmployee(name, email, phone)
+    EV -->> ES: Validation success/failure
+
+    alt Validation fails
+        ES ->> EFC: throw EmployeeValidationException
+    else Validation succeeds
+        ES ->> ED: addEmployee(name, email, phone)
+        ED ->> DB: INSERT INTO Employee VALUES (...)
+        DB -->> ED: Success
+        ED -->> ES: Success
+        ES -->> EFC: Employee added
+    end
+
+    EFC ->> User: Show success/failure message
+```

@@ -79,9 +79,10 @@ public class SceneController {
                         IEmployeeService empService = context.getBean(IEmployeeService.class);
                         IServiceService svcService = context.getBean(IServiceService.class);
                         logger.info("Loading BookingPage with BookingController.");
+                        loader.setControllerFactory(param -> new BookingController(bookService, custService, empService, svcService, this));
+
                         root = loader.load();
-                        sceneCache.put(fxmlFile, root);
-                        controllerCache.put(fxmlFile, loader.getController());
+
                     }
                     default -> {
                         logger.warn("Scene " + fxmlFile + " is not recognized, skipping scene loading.");
@@ -95,7 +96,7 @@ public class SceneController {
                 root = sceneCache.get(fxmlFile);
             }
 
-            // Flyttet sceneCache.remove og controllerCache.remove herind
+
             sceneCache.remove(fxmlFile);
             controllerCache.remove(fxmlFile);
 
@@ -103,5 +104,9 @@ public class SceneController {
         } catch (IOException e) {
             logger.error("Error loading scene " + fxmlFile, e);
         }
+    }
+
+    public static Map<String, Object> getControllerCache() {
+        return controllerCache;
     }
 }
