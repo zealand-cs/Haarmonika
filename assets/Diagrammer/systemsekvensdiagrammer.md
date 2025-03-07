@@ -312,3 +312,30 @@ sequenceDiagram
     BookingController->>BookingController: Opdaterer kalendervisning
     BookingController-->>Bruger: Viser opdateret kalender
 ```
+```mermaid
+sequenceDiagram
+    participant Bruger
+    participant EmployeeController
+    participant EmployeeFormController
+    participant EmployeeService
+    participant EmployeeValidator
+    participant EmployeeDao
+    participant Database
+
+    Bruger->>EmployeeController: Vælger employee i tabellen
+    EmployeeController->>EmployeeFormController: Initialiserer EmployeeForm med valgt employee
+    EmployeeFormController-->>Bruger: Viser employeeformular med data
+    Bruger->>EmployeeFormController: Redigerer employeeoplysninger
+    Bruger->>EmployeeFormController: Klikker "Gem"
+    EmployeeFormController->>EmployeeService: updateEmployee(employee)
+    EmployeeService->>EmployeeValidator: Validerer employeeoplysninger
+    EmployeeValidator-->>EmployeeService: Bekræfter validering
+    EmployeeService->>EmployeeDao: update(employee)
+    EmployeeDao->>Database: Opdaterer employee
+    Database-->>EmployeeDao: Bekræfter opdatering
+    EmployeeDao-->>EmployeeService: Bekræfter opdatering
+    EmployeeService-->>EmployeeFormController: Bekræfter opdatering af employee
+    EmployeeFormController-->>Bruger: Viser bekræftelse og lukker formular
+    EmployeeController->>EmployeeController: Opdaterer employeetabel
+    EmployeeController-->>Bruger: Viser opdateret employeetabel
+```
